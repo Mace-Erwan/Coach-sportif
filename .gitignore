@@ -1,0 +1,4 @@
+*.csv
+*.tmp
+secret/
+.DS_Store
