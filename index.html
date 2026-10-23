@@ -18,291 +18,206 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preload" href="fonts/bc-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-#dash-root{--dash-gutter:clamp(12px,2.4vw,28px)}
-.ax{
-  min-width:0;
-  --ax-accent:#0E8F9C;
-  --ax-accent-ink:color-mix(in srgb,#0E8F9C 78%,var(--color-fg));
-  --ax-accent-soft:color-mix(in srgb,#0E8F9C 10%,var(--color-bg));
-  --ax-accent-line:color-mix(in srgb,#0E8F9C 28%,transparent);
-  --ax-surface:color-mix(in srgb,var(--color-fg) 3.2%,var(--color-bg));
-  --ax-raised:var(--color-bg);
-  --ax-line:color-mix(in srgb,var(--color-fg) 9%,transparent);
-  --ax-line-strong:color-mix(in srgb,var(--color-fg) 16%,transparent);
-  --ax-muted:var(--color-fg-muted);
-  --ax-go:#1F9D61;--ax-adjust:#D98A16;--ax-stop:#D64545;
-  --ax-r-lg:18px;--ax-r-md:12px;--ax-r-sm:8px;
-  --ax-display:"Allure Display","Barlow Condensed",var(--font-anthropic-sans);
-  font-family:var(--font-anthropic-sans);color:var(--color-fg);font-size:15px;line-height:1.5;
-  font-variant-numeric:tabular-nums;display:grid;grid-template-columns:232px minmax(0,1fr);gap:28px;max-width:1320px;margin-inline:auto;align-items:start
+.al{
+  --ink:var(--color-fg,#132224);
+  --paper:var(--color-bg,#fff);
+  --mute:color-mix(in srgb,var(--ink) 58%,var(--paper));
+  --faint:color-mix(in srgb,var(--ink) 38%,var(--paper));
+  --line:color-mix(in srgb,var(--ink) 10%,transparent);
+  --soft:color-mix(in srgb,var(--ink) 3.5%,var(--paper));
+  --teal:#0E8F9C;--teal-ink:color-mix(in srgb,#0E8F9C 80%,var(--ink));
+  --go:#1F9D61;--adj:#D98A16;--stop:#D64545;
+  --feu:var(--go);
+  --disp:"Allure Display","Barlow Condensed",var(--font-anthropic-sans,system-ui);
+  font-family:var(--font-anthropic-sans,-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif);
+  color:var(--ink);font-size:15px;line-height:1.5;font-variant-numeric:tabular-nums;
+  max-width:1120px;margin:0 auto;padding:0 0 40px;min-width:0
 }
-.ax *{box-sizing:border-box}
-.ax h1,.ax h2,.ax h3,.ax p,.ax ul{margin:0}
-.ax ul{padding:0;list-style:none}
-.ax button{font:inherit;color:inherit}
-.ax :focus-visible{outline:2px solid var(--ax-accent);outline-offset:2px}
-.ax svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.al *{box-sizing:border-box}
+.al h1,.al h2,.al h3,.al p,.al ol,.al ul,.al dl,.al dd{margin:0}
+.al ol,.al ul{padding:0;list-style:none}
+.al button{font:inherit;color:inherit}
+.al :focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.al svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.al[data-feu=orange]{--feu:var(--adj)}
+.al[data-feu=rouge]{--feu:var(--stop)}
 
-/* ---------- barre latérale ---------- */
-.ax-side{position:sticky;top:12px;display:flex;flex-direction:column;gap:22px;padding:6px 0 12px;min-height:calc(100vh - 140px)}
-.ax-brand{display:flex;align-items:center;gap:12px;padding:6px 10px}
-.ax-brand .mark{width:36px;height:36px;border-radius:11px;background:var(--ax-accent);display:grid;place-items:center;color:#fff}
-.ax-brand .mark svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
-.ax-brand b{display:block;font-family:var(--ax-display);font-size:23px;font-weight:700;letter-spacing:.01em;line-height:1}
-.ax-brand span{display:block;font-size:13px;color:var(--ax-muted)}
-.ax-nav{display:flex;flex-direction:column;gap:2px}
-.ax-nav-t{font-size:12.5px;color:var(--ax-muted);padding:0 12px 6px}
-.ax-nav button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:0;border-radius:10px;padding:9px 12px;font-size:15px;color:var(--ax-muted);cursor:pointer}
-.ax-nav button:hover{background:var(--ax-surface);color:var(--color-fg)}
-.ax-nav button[aria-selected=true]{background:var(--ax-accent-soft);color:var(--ax-accent-ink);font-weight:600}
-.ax-side-foot{margin-top:auto;border-top:1px solid var(--ax-line);padding:16px 10px 0;display:flex;gap:10px;align-items:flex-start}
-.ax-side-foot .pulse{width:8px;height:8px;border-radius:50%;background:var(--ax-go);margin-top:7px;flex:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--ax-go) 18%,transparent)}
-.ax-side-foot b{display:block;font-size:14px;font-weight:600}
-.ax-side-foot span{display:block;font-size:13px;color:var(--ax-muted);line-height:1.4}
+/* ---------- barre du haut ---------- */
+.al-top{display:flex;align-items:center;gap:20px;padding:6px 0 22px}
+.al-id{display:flex;align-items:center;gap:12px;min-width:0;flex:1}
+.al-mark{width:38px;height:38px;border-radius:11px;background:#0B7A85;display:grid;place-items:center;flex:none}
+.al-mark svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round}
+.al-id b{display:block;font-family:var(--disp);font-size:24px;font-weight:700;line-height:1}
+.al-id span{display:block;font-size:13.5px;color:var(--mute);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.al-tabs{display:flex;gap:4px;background:var(--soft);border-radius:12px;padding:4px}
+.al-tabs button{display:flex;align-items:center;gap:8px;border:0;background:none;border-radius:9px;padding:8px 16px;font-size:14.5px;font-weight:500;color:var(--mute);cursor:pointer}
+.al-tabs button svg{display:none}
+.al-tabs button[aria-selected=true]{background:var(--paper);color:var(--ink);font-weight:600;box-shadow:0 1px 2px color-mix(in srgb,var(--ink) 12%,transparent)}
+#al-slot:empty{display:none}
 
 /* ---------- pages ---------- */
-.ax-side,.ax-nav{min-width:0}
-.ax-main{min-width:0;display:flex;flex-direction:column;gap:20px;padding-bottom:40px}
-.ax-page{display:flex;flex-direction:column;gap:20px}
-.ax-page[hidden]{display:none}
-.ax-ph{padding:10px 2px 4px}
-.ax-ph h2{font-family:var(--ax-display);font-size:40px;font-weight:700;letter-spacing:0;line-height:1.05}
-.ax-ph p{color:var(--ax-muted);margin-top:6px;max-width:70ch}
-.card{background:var(--ax-surface);border-radius:var(--ax-r-lg);padding:22px 24px;min-width:0}
-.card-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.card-h h3{font-size:16px;font-weight:600;letter-spacing:-.005em}
-.card-t{font-size:13.5px;color:var(--ax-muted)}
-.card .note{color:var(--ax-muted);font-size:13.5px;margin-top:4px;line-height:1.45;max-width:72ch}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr));gap:20px}
-.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17.5rem),1fr));gap:20px}
+.al-page[hidden]{display:none}
+.al-cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+.al-stack{display:flex;flex-direction:column;gap:28px;min-width:0}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.sec-h h3{font-size:13px;font-weight:600;color:var(--mute);letter-spacing:.02em}
+.sec-h span{font-size:13px;color:var(--faint)}
 
-/* ---------- hero ---------- */
-.hero{position:relative;background:var(--ax-raised);border:1px solid var(--ax-line);border-radius:var(--ax-r-lg);padding:32px 36px 26px 40px;overflow:hidden}
-.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ax-accent)}
-.hero-top{display:flex;gap:28px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
-.hero-txt{flex:1 1 30rem;min-width:0}
-.hero-kicker{font-size:13.5px;color:var(--ax-muted)}
-.hero h1{font-family:var(--ax-display);font-size:clamp(36px,4.4vw,54px);font-weight:700;letter-spacing:0;line-height:1;margin:0 0 14px}
-.hero-lede{font-size:16px;line-height:1.55;max-width:62ch}
-.hero-lede .k{font-weight:600}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-.tags li{font-size:13px;padding:4px 11px;border-radius:999px;background:var(--ax-surface);border:1px solid var(--ax-line)}
-.count{min-width:170px;text-align:right}
-.count .n{font-size:56px;font-weight:700;letter-spacing:-.04em;line-height:1}
-.count .n small{font-size:18px;font-weight:500;color:var(--ax-muted);letter-spacing:0;margin-left:4px}
-.count .l{color:var(--ax-muted);font-size:13.5px;margin-top:6px}
+/* verdict */
+.verdict{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 18px;align-items:center;padding:0 0 22px;border-bottom:1px solid var(--line)}
+.v-word{font-family:var(--disp);font-weight:700;font-size:64px;line-height:.9;color:var(--feu);letter-spacing:.01em}
+.v-txt b{display:block;font-size:17px;font-weight:600;line-height:1.35}
+.v-txt span{display:block;color:var(--mute);font-size:14px;margin-top:2px}
+.sig{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 8px;margin-top:12px}
+.sig li{display:flex;align-items:center;gap:7px;font-size:13px;padding:4px 10px 4px 8px;border-radius:999px;background:var(--soft)}
+.sig i{width:8px;height:8px;border-radius:50%;background:var(--go)}
+.sig .orange i{background:var(--adj)}.sig .rouge i{background:var(--stop)}
+.sig .orange,.sig .rouge{background:color-mix(in srgb,var(--feu) 10%,var(--paper))}
+.sig b{font-weight:600}
 
-/* parcours */
-.track{position:relative;margin:34px 0 6px;padding:44px 0 44px}
-.trk-bar{position:relative;height:14px}
-.trk-seg{position:absolute;top:0;bottom:0;border-radius:7px;background:color-mix(in srgb,var(--ax-accent) 15%,var(--color-bg));overflow:hidden}
-.trk-seg i{position:absolute;left:0;top:0;bottom:0;background:var(--ax-accent);border-radius:7px 0 0 7px}
-.trk-seg.done i{border-radius:7px}
-.trk-tick{position:absolute;top:20px;width:1px;height:5px;background:var(--ax-line-strong)}
-.trk-lab{position:absolute;top:30px;font-size:13px;color:var(--ax-muted);white-space:nowrap}
-.trk-lab b{color:var(--color-fg);font-weight:600;margin-right:5px}
-.trk-ms{position:absolute;top:-6px;width:2px;height:26px;margin-left:-1px;background:var(--color-fg)}
-.trk-ms::before{content:"";position:absolute;left:-4px;top:-4px;width:10px;height:10px;border-radius:2px;transform:rotate(45deg);background:var(--color-fg)}
-.trk-ms span{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12.5px;color:var(--ax-muted);text-align:center;line-height:1.25}
-.trk-ms span b{display:block;color:var(--color-fg);font-weight:600}
-.trk-ms.end span{left:auto;right:-2px;transform:none;text-align:right}
-.trk-ms.end{background:none}
-.trk-ms.end::before{display:none}
-.trk-ms.end svg{position:absolute;left:-3px;top:-12px;width:22px;height:22px;fill:none;stroke:var(--color-fg);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.trk-me{position:absolute;top:-7px;width:28px;height:28px;margin-left:-14px;border-radius:50%;background:var(--color-bg);border:5px solid var(--ax-accent);box-shadow:0 0 0 7px color-mix(in srgb,var(--ax-accent) 16%,transparent);z-index:2}
-.trk-me-l{position:absolute;bottom:calc(100% + 14px);left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--color-fg);color:var(--color-bg);padding:5px 11px 5px;border-radius:10px;font-size:12.5px;line-height:1.1;display:flex;align-items:baseline;gap:7px}
-.trk-me-l b{font-family:var(--ax-display);font-size:21px;font-weight:700;letter-spacing:.01em}
-.trk-me-l::after{content:"";position:absolute;left:50%;top:100%;margin-left:-5px;border:5px solid transparent;border-top-color:var(--color-fg)}
-.trk-me-l.st{left:-8px;transform:none}.trk-me-l.st::after{left:22px}
-.trk-me-l.en{left:auto;right:-8px;transform:none}.trk-me-l.en::after{left:auto;right:17px}
-@media (prefers-reduced-motion:no-preference){
-  .track.anim .trk-me{animation:axrun 1.2s cubic-bezier(.2,.8,.2,1) both}
-  .track.anim .trk-seg i{animation:axfill 1.2s cubic-bezier(.2,.8,.2,1) both;transform-origin:left}
-  @keyframes axrun{from{left:0}}
-  @keyframes axfill{from{transform:scaleX(0)}}
-}
-.hero-foot{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;border-top:1px solid var(--ax-line);padding-top:16px;margin-top:6px;color:var(--ax-muted);font-size:14px}
-.hero-foot>span{display:inline-flex;align-items:center;gap:7px}
-.hero-foot .sp{flex:1}
-.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ax-line-strong);background:var(--ax-raised);border-radius:10px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--color-fg)}
-.btn:hover{border-color:var(--ax-accent);color:var(--ax-accent-ink)}
+/* séance */
+.session{position:relative;padding:24px 0 0}
+.s-meta{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--mute)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:color-mix(in srgb,var(--tc,var(--teal)) 78%,var(--ink));padding:3px 10px 3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tc,var(--teal)) 13%,var(--paper))}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--tc,var(--teal))}
+.s-title{font-family:var(--disp);font-weight:700;font-size:clamp(36px,5vw,50px);line-height:1;margin:12px 0 4px}
+.s-pace{display:flex;align-items:baseline;gap:8px;font-family:var(--disp);font-weight:600;color:var(--teal-ink)}
+.s-pace .n{font-size:clamp(44px,7vw,68px);line-height:1;letter-spacing:.005em}
+.s-pace .u{font-size:22px;color:var(--mute)}
+.s-pace .l{font-family:var(--font-anthropic-sans,system-ui);font-size:13.5px;font-weight:500;color:var(--mute);margin-left:6px}
+.s-steps{counter-reset:st;margin-top:18px;display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:9px}
+.s-steps li{counter-increment:st;position:relative;padding:0 0 12px 22px;font-size:15px;line-height:1.45}
+.s-steps li:last-child{padding-bottom:0}
+.s-steps li::before{content:counter(st);position:absolute;left:-11px;top:1px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:2px solid var(--line);font-size:11px;font-weight:700;display:grid;place-items:center;color:var(--mute)}
+.s-one{margin-top:14px;font-size:15.5px;color:var(--mute)}
+.s-adapt{margin-top:18px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--feu) 9%,var(--paper));font-size:14.5px}
+.s-adapt b{display:block;font-size:12.5px;font-weight:600;color:color-mix(in srgb,var(--feu) 70%,var(--ink));margin-bottom:2px}
 
-/* ---------- décision du jour ---------- */
-.c-vert{--feu:var(--ax-go)}.c-orange{--feu:var(--ax-adjust)}.c-rouge{--feu:var(--ax-stop)}
-.decision{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);padding:0;overflow:hidden}
-.dec-l{padding:24px 26px;background:color-mix(in srgb,var(--feu,var(--ax-accent)) 8%,var(--color-bg));border-right:1px solid color-mix(in srgb,var(--feu,var(--ax-accent)) 20%,transparent)}
-.dec-r{padding:24px 28px;display:flex;flex-direction:column}
-.dec-lab{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px;font-weight:600}
-.dec-lab span{font-weight:400;color:var(--ax-muted);font-size:13.5px}
-.verdict{display:flex;align-items:center;gap:14px;margin:14px 0 6px;font-family:var(--ax-display);font-size:64px;font-weight:700;color:var(--feu,var(--color-fg));line-height:.9}
-.verdict .lamp{width:18px;height:18px;border-radius:50%;background:var(--feu,var(--ax-muted));box-shadow:0 0 0 6px color-mix(in srgb,var(--feu,transparent) 20%,transparent);flex:none}
-.dec-l p{font-size:15px;line-height:1.5}
-.dec-l .meta{color:var(--ax-muted);font-size:13px;margin-top:10px}
-.dec-l .stale{color:var(--ax-adjust);font-size:13px;margin-top:4px}
-@media (max-width:900px){.decision{grid-template-columns:minmax(0,1fr)}.dec-l{border-right:0;border-bottom:1px solid color-mix(in srgb,var(--feu,var(--ax-accent)) 20%,transparent)}}
+/* mot du coach */
+.coach{background:#0B3B40;color:#E9F4F4;border-radius:18px;padding:22px 24px;position:relative;overflow:hidden}
+.coach::after{content:"";position:absolute;right:-60px;bottom:-70px;width:220px;height:140px;border:2px solid rgba(255,255,255,.08);border-radius:70px;box-shadow:0 0 0 18px rgba(255,255,255,.03),0 0 0 36px rgba(255,255,255,.025)}
+.coach h3{font-family:var(--disp);font-size:24px;font-weight:700;line-height:1;margin-bottom:14px;color:#fff}
+.coach dl{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+.coach dt{font-size:12.5px;font-weight:600;color:#8FD3D9;margin-bottom:2px}
+.coach dd{font-size:15px;line-height:1.5}
 
-/* checklist */
-.chk{margin-top:16px;display:flex;flex-direction:column}
-.chk li{display:flex;align-items:center;gap:12px;padding:8px 0;border-top:1px solid color-mix(in srgb,var(--color-fg) 7%,transparent)}
-.chk li:first-child{border-top:0}
-.chk .ic{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex:none;color:#fff;background:var(--feu)}
-.chk .ic svg{width:14px;height:14px;stroke-width:2.6}
-.chk .lb{flex:1;min-width:0;font-size:14.5px}
-.chk .v{font-weight:600;font-size:14.5px}
+/* nuit */
+.night{border-top:1px solid var(--line);padding-top:20px}
+.n-main{display:flex;align-items:center;gap:20px}
+.ring{position:relative;width:92px;height:92px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .v{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring .v b{font-family:var(--disp);font-size:34px;font-weight:700;line-height:1}
+.ring .v small{display:block;font-size:11px;color:var(--mute);margin-top:-2px}
+.n-dur b{font-family:var(--disp);font-size:40px;font-weight:700;line-height:1}
+.n-dur span{display:block;color:var(--mute);font-size:14px;margin-top:4px}
+.phases{display:flex;height:10px;border-radius:5px;overflow:hidden;margin-top:18px;gap:2px}
+.phases span{display:block;height:100%}
+.ph-l{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:12.5px;color:var(--mute)}
+.ph-l i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:18px;border-top:1px solid var(--line)}
+.kv>div{padding:12px 12px 0 0}
+.kv>div+div{padding-left:14px;border-left:1px solid var(--line)}
+.kv dt{font-size:12.5px;color:var(--mute)}
+.kv dd{font-family:var(--disp);font-size:26px;font-weight:700;line-height:1.1}
+.kv dd small{font-family:var(--font-anthropic-sans,system-ui);font-size:12.5px;font-weight:500;color:var(--mute);margin-left:3px}
+.kv .sub{display:block;font-size:12px;color:var(--faint);margin-top:2px}
 
-/* séance du jour */
-.sj .titre{font-family:var(--ax-display);font-size:34px;font-weight:700;line-height:1.02;margin:16px 0 10px;letter-spacing:.005em}
-.sj .det{font-size:15px;line-height:1.55;max-width:60ch}
-.sj .kms{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.sj .kmchip{display:inline-flex;align-items:baseline;gap:4px;font-size:13px;color:var(--ax-muted);background:var(--ax-surface);border-radius:10px;padding:6px 12px}
-.sj .kmchip b{font-family:var(--ax-display);font-size:22px;font-weight:700;color:var(--color-fg);line-height:1}
-.adapt{margin-top:16px;padding:12px 14px;border-radius:var(--ax-r-md);background:var(--ax-surface);border-left:3px solid var(--feu,var(--ax-accent));font-size:14px;line-height:1.5}
-.adapt b{display:block;font-size:13px;color:var(--ax-muted);font-weight:600;margin-bottom:2px}
-.next{margin-top:auto;padding-top:16px;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:14px}
-.next .cap{color:var(--ax-muted);font-size:13px;width:100%;border-top:1px solid var(--ax-line);padding-top:14px}
-.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:3px 10px 3px 8px;border-radius:999px;background:color-mix(in srgb,var(--tc,var(--ax-muted)) 13%,var(--color-bg));color:color-mix(in srgb,var(--tc,var(--ax-muted)) 70%,var(--color-fg));white-space:nowrap}
-.pill i{width:7px;height:7px;border-radius:50%;background:var(--tc,var(--ax-muted))}
+/* journée */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{background:var(--soft);border-radius:14px;padding:14px 16px}
+.tile dt{font-size:12.5px;color:var(--mute)}
+.tile dd{font-family:var(--disp);font-size:32px;font-weight:700;line-height:1.1}
+.tile dd small{font-family:var(--font-anthropic-sans,system-ui);font-size:13px;font-weight:500;color:var(--mute);margin-left:3px}
+.tile .sub{display:block;font-size:12.5px;color:var(--mute)}
+.bar{height:5px;border-radius:3px;background:color-mix(in srgb,var(--ink) 9%,transparent);margin-top:8px;overflow:hidden}
+.bar span{display:block;height:100%;border-radius:3px;background:var(--teal)}
+
+/* rendez-vous */
+.rdv li{display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}
+.rdv li:first-child{border-top:0;padding-top:0}
+.rdv .j{font-family:var(--disp);font-size:24px;font-weight:700;line-height:1}
+.rdv .t b{display:block;font-weight:600;font-size:14.5px}
+.rdv .t span{font-size:13px;color:var(--mute)}
+.rdv .d{font-size:13px;color:var(--mute);text-align:right}
 
 /* semaine */
-.wk-prog{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--ax-muted)}
-.wk-prog b{font-family:var(--ax-display);font-size:22px;color:var(--color-fg);font-weight:700}
-.wk-prog .bar{width:140px;height:6px;border-radius:3px;background:color-mix(in srgb,var(--ax-accent) 15%,var(--color-bg));overflow:hidden}
-.wk-prog .bar i{display:block;height:100%;background:var(--ax-accent);border-radius:3px}
-.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin-top:16px}
-@media (max-width:1100px){.week{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media (max-width:640px){.week{grid-template-columns:1fr 1fr}}
-.day{background:var(--ax-raised);border-radius:var(--ax-r-md);padding:12px 12px 11px;display:flex;flex-direction:column;gap:8px;min-height:9.5rem;border:1px solid var(--ax-line);position:relative;overflow:hidden}
-.day::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--tc,transparent)}
-.day.today{border-color:var(--ax-accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--ax-accent) 16%,transparent)}
-.day.off{background:transparent;border-style:dashed}
-.day .dn{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--ax-muted)}
-.day .dn b{font-family:var(--ax-display);font-size:20px;color:var(--color-fg);font-weight:700;text-transform:capitalize;letter-spacing:.01em}
-.day .t{font-size:14px;font-weight:600;line-height:1.3}
-.day .f{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:13px;color:var(--ax-muted)}
-.stat{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
-.stat::first-letter{text-transform:uppercase}
-.stat.fait{color:var(--ax-go);background:color-mix(in srgb,var(--ax-go) 12%,transparent)}
-.stat.nonfait{color:var(--ax-stop);background:color-mix(in srgb,var(--ax-stop) 10%,transparent)}
-.stat.avenir{color:var(--ax-muted);background:var(--ax-surface)}
-.stat.repos{color:var(--ax-muted)}
+.wk-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.wk-head h2{font-family:var(--disp);font-size:clamp(34px,5vw,46px);font-weight:700;line-height:1}
+.wk-head p{color:var(--mute);margin-top:6px}
+.wk-km{min-width:220px}
+.wk-km b{font-family:var(--disp);font-size:34px;font-weight:700}
+.wk-km span{color:var(--mute);font-size:14px}
+.days li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:16px;align-items:start;padding:16px 0;border-bottom:1px solid var(--line)}
+.days .dd{line-height:1.15}
+.days .dd b{display:block;font-family:var(--disp);font-size:26px;font-weight:700}
+.days .dd span{font-size:12.5px;color:var(--mute)}
+.days .bd b{display:block;font-weight:600;font-size:15.5px;margin:4px 0 2px}
+.days .bd p{font-size:14px;color:var(--mute);line-height:1.45}
+.days .st{font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap;background:var(--soft);color:var(--mute)}
+.days .st.fait{background:color-mix(in srgb,var(--go) 13%,var(--paper));color:color-mix(in srgb,var(--go) 75%,var(--ink))}
+.days .st.rate{background:color-mix(in srgb,var(--stop) 11%,var(--paper));color:color-mix(in srgb,var(--stop) 75%,var(--ink))}
+.days .st.auj{background:var(--ink);color:var(--paper)}
+.days li.today{background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 7%,transparent),transparent 70%);margin:0 -12px;padding-left:12px;padding-right:12px;border-radius:12px;border-bottom-color:transparent}
+.days li.repos{opacity:.6}
+.days .real{display:block;font-size:13px;color:color-mix(in srgb,var(--go) 75%,var(--ink));margin-top:4px;font-weight:500}
+.nextwk li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:14.5px}
+.nextwk li:first-child{border-top:0}
+.nextwk span{color:var(--mute);white-space:nowrap}
 
-/* bandeau d'indicateurs */
-.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px;background:var(--ax-raised);border:1px solid var(--ax-line);border-radius:var(--ax-r-md)}
-.m{padding:16px 18px;display:flex;flex-direction:column;gap:2px;min-width:0;border-left:1px solid var(--ax-line)}
-.m:first-child{border-left:0}
-.m .lb{font-size:13px;color:var(--ax-muted)}
-.m .mv{font-family:var(--ax-display);font-size:44px;font-weight:700;line-height:1.05;letter-spacing:.005em}
-.m .mv small{font-family:var(--font-anthropic-sans);font-size:13px;font-weight:500;color:var(--ax-muted);margin-left:4px;letter-spacing:0}
-.m .sub{font-size:12.5px;color:var(--ax-muted);line-height:1.4}
-.m .spark{height:24px;margin-top:6px}
-.m:nth-child(3n+1){border-left:0}.m:nth-child(n+4){border-top:1px solid var(--ax-line)}
-@media (min-width:1640px){.metrics{grid-template-columns:repeat(6,minmax(0,1fr))}.m:nth-child(n){border-left:1px solid var(--ax-line);border-top:0}.m:first-child{border-left:0}}
-@media (max-width:640px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.m{border-left:1px solid var(--ax-line)!important}.m:nth-child(2n+1){border-left:0!important}.m:nth-child(n+3){border-top:1px solid var(--ax-line)}}
+/* objectifs */
+.goals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.goal{border-radius:18px;padding:22px 24px;background:var(--soft)}
+.goal.main{background:#0B3B40;color:#E9F4F4}
+.goal .cap{font-size:13px;font-weight:600;color:var(--mute)}
+.goal.main .cap{color:#8FD3D9}
+.goal .big{font-family:var(--disp);font-size:clamp(52px,7vw,72px);font-weight:700;line-height:1;margin:6px 0 2px}
+.goal .pace{font-size:15px}
+.goal dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid color-mix(in srgb,currentColor 15%,transparent)}
+.goal dt{font-size:12px;opacity:.75}
+.goal dd{font-family:var(--disp);font-size:22px;font-weight:700}
+.goal p.n{font-size:13.5px;margin-top:14px;opacity:.85;line-height:1.45}
+.paces li{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:11px 0;border-top:1px solid var(--line)}
+.paces li:first-child{border-top:0}
+.paces i{width:9px;height:9px;border-radius:50%;background:var(--tc);transform:translateY(-1px)}
+.paces b{font-weight:600}
+.paces span.u{display:block;font-size:13px;color:var(--mute);line-height:1.4}
+.paces .p{font-family:var(--disp);font-size:22px;font-weight:700;white-space:nowrap}
+.trends{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.trend{background:var(--soft);border-radius:14px;padding:14px 16px 10px}
+.trend dt{font-size:12.5px;color:var(--mute)}
+.trend dd{font-family:var(--disp);font-size:28px;font-weight:700;line-height:1.1}
+.trend dd small{font-family:var(--font-anthropic-sans,system-ui);font-size:12.5px;font-weight:500;color:var(--mute);margin-left:4px}
+.trend svg{display:block;width:100%;height:38px;margin-top:6px;overflow:visible}
 
-/* graphiques */
-.box{position:relative;margin-top:14px}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:13px;color:var(--ax-muted)}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.legend i.ln{height:3px;width:16px;border-radius:2px}
-.legend i.gh{background:transparent!important;border:1.5px dashed currentColor}
-.ax-svg{display:block;overflow:visible}
-.ax-svg .grid{stroke:var(--ax-line);stroke-dasharray:2 4}
-.ax-svg .tick{fill:var(--ax-muted);font-size:11.5px}
-.ax-svg .ref{stroke:var(--ax-line-strong);stroke-dasharray:5 4}
-.ax-svg .reflab{fill:var(--ax-muted);font-size:11px}
-.ax-svg .ln{fill:none;stroke-linecap:round;stroke-linejoin:round}
-.ax-svg .rule{stroke:var(--ax-line-strong)}
-.ax-svg .hit{fill:transparent}
-.ax-svg .now{stroke:var(--color-fg);stroke-width:1.2;stroke-dasharray:3 3}
-.ax-svg .nowlab{fill:var(--color-fg);font-size:11.5px;font-weight:600}
-.ax-tip{position:absolute;top:0;left:0;background:var(--cds-surface-popover);border:1px solid var(--cds-border);border-radius:10px;box-shadow:var(--cds-shadow-popover);padding:8px 11px;font-size:12.5px;pointer-events:none;white-space:nowrap;z-index:2;opacity:0;transition:opacity .12s}
-.ax-tip .tt{color:var(--cds-text-secondary);margin-bottom:3px;font-weight:600}
-.ax-tip .row{display:flex;align-items:center;gap:7px;line-height:1.6}
-.ax-tip .row i{width:8px;height:8px;border-radius:2px;display:inline-block}
-.ax-tip .row b{margin-left:auto;padding-left:14px;font-weight:600}
-.fail{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--ax-muted);font-size:13px;height:100%;min-height:120px}
-.fail::before{content:"";width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
+.empty{color:var(--mute);font-size:14px;padding:12px 0}
 
-/* plan */
-.seg{display:inline-flex;flex-wrap:wrap;gap:4px;background:var(--ax-surface);border-radius:12px;padding:4px}
-.seg button{border:0;background:none;border-radius:9px;padding:6px 12px;font-size:13.5px;color:var(--ax-muted);cursor:pointer}
-.seg button[aria-pressed=true]{background:var(--ax-raised);color:var(--color-fg);font-weight:600;box-shadow:0 1px 2px color-mix(in srgb,var(--color-fg) 12%,transparent)}
-.weeks{display:flex;flex-direction:column;gap:10px}
-.wk{background:var(--ax-surface);border-radius:var(--ax-r-lg);border:1px solid transparent}
-.wk.cur{border-color:var(--ax-accent-line);background:var(--ax-accent-soft)}
-.wk>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:52px 9.5rem minmax(0,1fr) auto 18px;gap:14px;align-items:center;padding:14px 20px}
-.wk>summary::-webkit-details-marker{display:none}
-.wk .wn{font-family:var(--ax-display);font-size:17px;font-weight:700;background:var(--ax-raised);border:1px solid var(--ax-line);border-radius:9px;text-align:center;padding:4px 0}
-.wk.cur .wn{background:var(--ax-accent);color:#fff;border-color:transparent}
-.wk .wd{font-size:13.5px;color:var(--ax-muted)}
-.wk .wt{min-width:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14.5px}
-.wk .wkm{font-family:var(--ax-display);font-size:26px;font-weight:700;letter-spacing:0;text-align:right;line-height:1}
-.wk .wkm small{font-size:13px;color:var(--ax-muted);font-weight:500;margin-left:2px}
-.wk .chev{color:var(--ax-muted);transition:transform .2s}
-.wk[open] .chev{transform:rotate(90deg)}
-@media (max-width:760px){.wk>summary{grid-template-columns:44px minmax(0,1fr) auto;row-gap:6px}.wk .wd{grid-column:2}.wk .wt{grid-column:1/-1}.wk .chev{display:none}}
-.sess{padding:0 20px 18px}
-.sess li{display:grid;grid-template-columns:7.5rem minmax(0,1fr) auto;gap:6px 16px;padding:12px 14px;background:var(--ax-raised);border-radius:var(--ax-r-md);margin-top:8px;align-items:start}
-.sess li.today{box-shadow:inset 3px 0 0 var(--ax-accent)}
-.sess .sd{font-size:13.5px;color:var(--ax-muted);padding-top:2px}
-.sess .sd::first-letter{text-transform:uppercase}
-.sess .st{font-weight:600;font-size:14.5px}
-.sess .sx{color:var(--ax-muted);font-size:13.5px;margin-top:4px;line-height:1.5}
-.sess .sr{display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-size:13px;color:var(--ax-muted);white-space:nowrap}
-.sess .sr .kmv{font-family:var(--ax-display);font-weight:700;color:var(--color-fg);font-size:20px}
-@media (max-width:640px){.sess li{grid-template-columns:minmax(0,1fr) auto}.sess .sd{grid-column:1/-1}}
+@media (prefers-reduced-motion:no-preference){
+  .al-page:not([hidden]) .verdict,.al-page:not([hidden]) .session,.al-page:not([hidden]) .wk-head,.al-page:not([hidden]) .goals{animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+  .al-page:not([hidden]) .session{animation-delay:.06s}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
 
-/* tableaux */
-.tbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
-.tbar input,.tbar select{font:inherit;font-size:14px;color:var(--color-fg);background:var(--ax-raised);border:1px solid var(--ax-line-strong);border-radius:10px;padding:8px 12px}
-.tbar input{flex:1 1 14rem}
-.tscroll{max-height:34rem;overflow:auto;margin-top:12px;border-radius:var(--ax-r-md);background:var(--ax-raised);border:1px solid var(--ax-line)}
-.ax table{width:100%;border-collapse:collapse;font-size:14px}
-.ax th{position:sticky;top:0;background:var(--ax-raised);text-align:left;font-weight:600;font-size:13px;color:var(--ax-muted);padding:10px 14px;border-bottom:1px solid var(--ax-line);white-space:nowrap}
-.ax th button{all:unset;cursor:pointer}
-.ax th[aria-sort=ascending] button::after{content:" ↑"}
-.ax th[aria-sort=descending] button::after{content:" ↓"}
-.ax td{padding:10px 14px;border-bottom:1px solid var(--ax-line);vertical-align:top}
-.ax tr:last-child td{border-bottom:0}
-.ax td.num,.ax th.num{text-align:right}
-.ax tr.race td{font-weight:600}
-.ax td.nw{white-space:nowrap}
-.ax td .zd{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--tc)}
-@media (max-width:700px){.ax .hn{display:none}}
-.reflist{margin-top:12px;display:flex;flex-direction:column}
-.reflist li{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-top:1px solid var(--ax-line);align-items:baseline}
-.reflist li:first-child{border-top:0}
-.reflist .rv{font-family:var(--ax-display);font-size:25px;font-weight:700}
-.reflist .rd{color:var(--ax-muted);font-size:13px}
-.rules{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.rule-c{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:var(--ax-r-md);background:var(--ax-raised);font-size:14px;line-height:1.5}
-.rule-c .dot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex:none;background:var(--feu)}
-.goal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
-.preds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
-.preds>div{border:1px solid var(--ax-line);border-radius:var(--ax-r-md);padding:10px 14px}
-.preds .cap{font-size:13px;color:var(--ax-muted)}
-.preds .v{font-family:var(--ax-display);font-size:25px;font-weight:700;line-height:1.1}
-@media (max-width:760px){.preds{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.goal>div{background:var(--ax-raised);border-radius:var(--ax-r-md);padding:14px 16px}
-.goal .cap{font-size:13px;color:var(--ax-muted)}
-.goal .big{font-family:var(--ax-display);font-size:38px;font-weight:700;line-height:1.05}
-
-.ax [data-dash-source-state=empty]{color:transparent}
-.ax [data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
-
-/* ---------- mobile ---------- */
 @media (max-width:900px){
-  .ax{grid-template-columns:minmax(0,1fr);gap:16px}
-  .ax-side{position:sticky;top:0;z-index:5;min-height:0;flex-direction:row;align-items:center;gap:10px;padding:8px 0;background:var(--color-bg);border-bottom:1px solid var(--ax-line)}
-  .ax-brand{padding:0 4px}.ax-brand span{display:none}
-  .ax-nav{flex-direction:row;overflow-x:auto;scrollbar-width:none;flex:1}
-  .ax-nav-t,.ax-side-foot{display:none}
-  .ax-nav button{white-space:nowrap;padding:8px 12px;width:auto}
-  .ax-nav button svg{display:none}
-  .hero{padding:22px 20px 20px 24px}
-  .count{text-align:left}
-  .goal{grid-template-columns:1fr}
+  .al-cols{grid-template-columns:minmax(0,1fr);gap:28px}
+  .goals{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:700px){
+  .al{font-size:15px;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  .al-top{padding:4px 0 16px}
+  .al-tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;border-radius:0;gap:0;padding:6px 8px calc(env(safe-area-inset-bottom) + 4px);
+    background:color-mix(in srgb,var(--paper) 86%,transparent);-webkit-backdrop-filter:saturate(1.8) blur(18px);backdrop-filter:saturate(1.8) blur(18px);
+    border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .al-tabs button{flex-direction:column;gap:3px;padding:6px 0 4px;font-size:11px;justify-content:center}
+  .al-tabs button svg{display:block;width:25px;height:25px}
+  .al-tabs button[aria-selected=true]{background:none;box-shadow:none;color:var(--teal)}
+  .verdict{grid-template-columns:minmax(0,1fr)}
+  .v-word{font-size:58px}
+  .days li.past .bd p{display:none}
+  .kv dd{font-size:23px}
+  .days li{grid-template-columns:50px minmax(0,1fr)}
+  .days .st{grid-column:2;justify-self:start}
+  .goal dl{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 </style>
 <style>
@@ -362,49 +277,18 @@ button{touch-action:manipulation}
 .lock:not([data-state=boot]) .lock-wait{display:none}
 
 /* ---------- appli ---------- */
-#dash-root{padding:26px var(--dash-gutter,24px) 0}
-.app-bar{display:none}
-.ax-nav .sh{display:none}
-.ax-side-foot .app-upd{margin-top:6px}
-.ax .app-link{margin-top:8px;padding:0;border:0;background:none;color:var(--ax-accent-ink);font:600 13.5px var(--font-anthropic-sans);cursor:pointer}
-.ax .app-link:disabled{opacity:.55}
-.ax .ax-brand .mark svg{stroke-width:1.9}
-.ri{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#dash-root{padding:calc(env(safe-area-inset-top) + 26px) 24px 0}
+.app-tools{display:flex;align-items:center;gap:10px}
+.app-tools .app-upd{font-size:12.5px;color:var(--color-fg-muted);white-space:nowrap}
+.app-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--app-line);background:var(--color-bg);color:var(--color-fg);display:grid;place-items:center;flex:none;cursor:pointer}
+.app-btn:focus-visible{outline:2px solid var(--app-accent);outline-offset:2px}
+.ri{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .busy .ri{animation:spin .9s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.busy .ri{animation:none}}
-
-@media (max-width:900px){
-  .app-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:30;
-    padding:calc(env(safe-area-inset-top) + 10px) 16px 10px;background:var(--app-glass);
-    -webkit-backdrop-filter:saturate(1.8) blur(18px);backdrop-filter:saturate(1.8) blur(18px);border-bottom:1px solid var(--app-line)}
-  .app-id{display:flex;align-items:center;gap:11px;min-width:0}
-  .app-mark{width:34px;height:34px;border-radius:10px;background:var(--app-accent-strong);display:grid;place-items:center;flex:none}
-  .app-mark svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round}
-  .app-id b{display:block;font-family:"Allure Display","Barlow Condensed",var(--font-anthropic-sans);font-size:22px;font-weight:700;line-height:1}
-  .app-id span{display:block;font-size:12.5px;color:var(--color-fg-muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .app-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--app-line);background:var(--color-bg);color:var(--color-fg);display:grid;place-items:center;flex:none;cursor:pointer}
-  .app-btn:focus-visible{outline:2px solid var(--app-accent);outline-offset:2px}
-
-  #dash-root{padding:14px 16px 0}
-  .ax .ax-side{position:fixed;top:auto;left:0;right:0;bottom:0;z-index:30;display:block;min-height:0;
-    padding:5px 6px calc(env(safe-area-inset-bottom) + 3px);border-bottom:0;border-top:1px solid var(--ax-line);
-    background:var(--app-glass);-webkit-backdrop-filter:saturate(1.8) blur(18px);backdrop-filter:saturate(1.8) blur(18px)}
-  .ax .ax-side .ax-brand{display:none}
-  .ax .ax-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;overflow:visible}
-  .ax .ax-nav button{flex-direction:column;justify-content:center;gap:3px;width:100%;padding:6px 0 5px;border-radius:12px;
-    font-size:11px;line-height:1.1;font-weight:500;letter-spacing:.005em;text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none}
-  .ax .ax-nav button:hover{background:none}
-  .ax .ax-nav button svg.i{display:block;width:25px;height:25px;stroke-width:1.7}
-  .ax .ax-nav button[aria-selected=true]{background:none;color:var(--app-accent);font-weight:600}
-  .ax .ax-nav button[aria-selected=true] svg.i{stroke-width:2.1}
-  .ax-nav .lg{display:none}
-  .ax-nav .sh{display:inline}
-  .ax .ax-main{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)}
-  .ax th,.ax td{padding-left:10px;padding-right:10px}
-  .ax td.num{white-space:nowrap}
-  .ax #tab-moy th,.ax #tab-moy td{padding-left:7px;padding-right:7px}
-  .ax #tab-moy th{white-space:normal;vertical-align:bottom}
+@media (max-width:700px){
+  #dash-root{padding:calc(env(safe-area-inset-top) + 12px) 18px 0}
+  .app-tools .app-upd{display:none}
 }
 </style>
 </head>
@@ -430,945 +314,363 @@ button{touch-action:manipulation}
   </div>
 </main>
 <div id="app" hidden>
-  <header class="app-bar">
-    <div class="app-id">
-      <span class="app-mark"><svg viewBox="0 0 24 24"><rect x="2.6" y="6" width="18.8" height="12" rx="6"/><rect x="6.6" y="9.6" width="10.8" height="4.8" rx="2.4"/><path d="M14.6 14.4V18"/></svg></span>
-      <div><b>Allure</b><span class="app-upd">Chargement…</span></div>
-    </div>
-    <button type="button" class="app-btn" data-refresh aria-label="Actualiser les données"><svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4.2h-4.2"/></svg></button>
-  </header>
   <div id="dash-root">
-<div class="ax">
-  <aside class="ax-side">
-    <div class="ax-brand">
-      <div class="mark"><svg viewBox="0 0 24 24"><rect x="2.6" y="6" width="18.8" height="12" rx="6"/><rect x="6.6" y="9.6" width="10.8" height="4.8" rx="2.4"/><path d="M14.6 14.4V18"/></svg></div>
-      <div><b>Allure</b><span>Coach semi et 10 km</span></div>
+<div class="al" id="al">
+  <header class="al-top">
+    <div class="al-id">
+      <span class="al-mark"><svg viewBox="0 0 24 24"><rect x="2.6" y="6" width="18.8" height="12" rx="6"/><rect x="6.6" y="9.6" width="10.8" height="4.8" rx="2.4"/><path d="M14.6 14.4V18"/></svg></span>
+      <div><b>Allure</b><span id="al-date">—</span></div>
     </div>
-    <nav class="ax-nav" role="tablist" aria-label="Sections">
-      <div class="ax-nav-t">Ma prépa</div>
-      <button role="tab" id="tab-aujourdhui" data-tab="aujourdhui"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/></svg><span class="lg">Aujourd’hui</span><span class="sh">Aujourd’hui</span></button>
-      <button role="tab" id="tab-plan" data-tab="plan"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="lg">Plan</span><span class="sh">Plan</span></button>
-      <button role="tab" id="tab-sante" data-tab="sante"><svg class="i" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"/></svg><span class="lg">Santé et récup</span><span class="sh">Santé</span></button>
-      <button role="tab" id="tab-seances" data-tab="seances"><svg class="i" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span class="lg">Séances et charge</span><span class="sh">Séances</span></button>
-      <button role="tab" id="tab-reperes" data-tab="reperes"><svg class="i" viewBox="0 0 24 24"><path d="M4.5 17.5a8.5 8.5 0 1 1 15 0"/><path d="M12 14l4-4.5"/></svg><span class="lg">Allures et repères</span><span class="sh">Repères</span></button>
+    <nav class="al-tabs" role="tablist" aria-label="Sections">
+      <button role="tab" id="t-jour" data-p="jour"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/></svg>Aujourd’hui</button>
+      <button role="tab" id="t-semaine" data-p="semaine"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Semaine</button>
+      <button role="tab" id="t-objectifs" data-p="objectifs"><svg class="i" viewBox="0 0 24 24"><path d="M5.5 21V4h11l-2.2 4 2.2 4H5.5"/></svg>Objectifs</button>
     </nav>
-    <div class="ax-side-foot">
-      <span class="pulse"></span>
-      <div><b>Garmin connecté</b><span id="sync">Mise à jour chaque matin à 9 h 20</span><span class="app-upd"></span><button type="button" class="app-link" data-refresh>Actualiser</button></div>
+    <div id="al-slot"></div>
+  </header>
+
+  <!-- ========== AUJOURD'HUI ========== -->
+  <section class="al-page" id="p-jour" role="tabpanel">
+    <div class="al-cols">
+      <div class="al-stack">
+        <div>
+          <div class="verdict" id="verdict"><div class="v-word">—</div><div class="v-txt"><b>Lecture de ta nuit…</b></div></div>
+          <article class="session" id="session"></article>
+        </div>
+        <article class="coach" id="coach"><h3>Le mot du coach</h3><dl id="coach-dl"></dl></article>
+      </div>
+      <div class="al-stack">
+        <article class="night" id="night"></article>
+        <article id="day"><div class="sec-h"><h3>Ta journée</h3><span id="day-date"></span></div><dl class="tiles" id="tiles"></dl></article>
+        <article><div class="sec-h"><h3>Prochains rendez-vous</h3></div><ol class="rdv" id="rdv"></ol></article>
+      </div>
     </div>
-  </aside>
+  </section>
 
-  <main class="ax-main">
-    <!-- ================= AUJOURD'HUI ================= -->
-    <section class="ax-page" id="aujourdhui" role="tabpanel">
-      <article class="hero" id="hero">
-        <h1>Semi d’Antony en 1:20, 10 km sous 35:00</h1>
-        <p class="hero-lede dash-skeleton" id="takeaway" data-source="feu_du_jour plan">—</p>
-        <ul class="tags">
-          <li>3:47 /km au semi</li>
-          <li>3:30 /km au 10 km</li>
-          <li>5 séances par semaine</li>
-          <li>VO2max <span data-source="etat_du_jour" data-field="valeur" data-where="cle=vo2max" data-fill>—</span></li>
-          <li>Forerunner 165</li>
-        </ul>
-        <div class="track" id="track" data-source="semaines plan"></div>
-        <div class="hero-foot">
-          <span><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Du 14 octobre au 28 mars</span>
-          <span id="hero-week" data-source="semaines"></span>
-          <span class="sp"></span>
-          <button class="btn" data-go="plan">Voir tout le plan</button>
-        </div>
-      </article>
-
-      <article class="card decision" id="decision">
-        <div class="dec-l" id="feu" data-source="feu_du_jour">
-          <div class="dec-lab">Feu du jour<span id="feu-date"></span></div>
-          <div class="verdict"><span class="lamp"></span><span id="feu-verdict" data-source="feu_du_jour" data-field="affichage" data-where="signal=global">—</span></div>
-          <p id="feu-msg">—</p>
-          <ul class="chk" id="feu-list" data-source="feu_du_jour"></ul>
-          <p class="meta">Signaux hors du vert : <span id="feu-cpt" data-source="feu_du_jour" data-field="seuil" data-where="signal=global">—</span></p>
-          <p class="stale" id="feu-stale"></p>
-        </div>
-        <div class="dec-r sj" id="seance-du-jour" data-source="plan">
-          <div class="dec-lab">Séance du jour<span id="sj-date"></span></div>
-          <div id="sj-body" style="display:flex;flex-direction:column;flex:1"><div class="titre dash-skeleton">—</div></div>
-        </div>
-      </article>
-
-      <article class="card" id="cette-semaine">
-        <div class="card-h"><div><h3>Cette semaine</h3><div class="card-t" id="cette-semaine-note" data-source="semaines" style="margin-top:2px"></div></div>
-          <div class="wk-prog" id="wk-prog" data-source="volume_hebdo"></div></div>
-        <div class="week" id="strip" data-source="plan suivi_plan"></div>
-      </article>
-
-      <article class="card" id="indicateurs">
-        <div class="card-h"><h3>Indicateurs du matin</h3><span class="card-t">relevés par ta montre</span></div>
-        <div class="metrics">
-          <div class="m"><span class="lb">Forme du jour</span>
-            <span class="mv"><span data-source="etat_du_jour" data-field="valeur" data-where="cle=readiness" data-fill>—</span><small>/100</small></span>
-            <span class="sub" data-source="etat_du_jour" data-field="valeur" data-where="cle=readiness_niveau" data-fill>—</span></div>
-          <div class="m"><span class="lb">Sommeil</span>
-            <span class="mv"><span id="t-som-score" data-source="sommeil" data-field="score">—</span><small>/100</small></span>
-            <span class="sub"><span data-source="feu_du_jour" data-field="affichage" data-where="signal=sommeil_heures" data-fill>—</span> de sommeil</span>
-            <div class="spark" id="sp-som" data-source="sommeil"></div></div>
-          <div class="m"><span class="lb">VFC de la nuit</span>
-            <span class="mv"><span id="t-vfc-n" data-source="vfc" data-field="vfc_nuit">—</span><small>ms</small></span>
-            <span class="sub"><span data-source="etat_du_jour" data-field="valeur" data-where="cle=vfc_statut" data-fill>—</span>, moy. 7 j <span data-source="etat_du_jour" data-field="valeur" data-where="cle=vfc_7j" data-fill>—</span> ms</span>
-            <div class="spark" id="sp-vfc" data-source="vfc"></div></div>
-          <div class="m"><span class="lb">FC de repos</span>
-            <span class="mv"><span data-source="etat_du_jour" data-field="valeur" data-where="cle=fc_repos" data-fill>—</span><small>bpm</small></span>
-            <span class="sub">récup restante <span data-source="etat_du_jour" data-field="valeur" data-where="cle=recup_h" data-fill>—</span> h</span></div>
-          <div class="m"><span class="lb">VO2max</span>
-            <span class="mv"><span data-source="etat_du_jour" data-field="valeur" data-where="cle=vo2max" data-fill>—</span></span>
-            <span class="sub">statut <span data-source="etat_du_jour" data-field="valeur" data-where="cle=statut" data-fill>—</span></span></div>
-          <div class="m"><span class="lb">Ratio de charge</span>
-            <span class="mv"><span data-source="etat_du_jour" data-field="valeur" data-where="cle=ratio" data-fill>—</span></span>
-            <span class="sub">7 derniers jours ÷ charge habituelle, zone <span id="t-charge-z" data-source="charge" data-field="zone_ratio">—</span></span></div>
-        </div>
-      </article>
-    </section>
-
-    <!-- ================= PLAN ================= -->
-    <section class="ax-page" id="plan" role="tabpanel" hidden>
-      <header class="ax-ph"><h2>Plan d’entraînement</h2><p>23 semaines, 5 séances par semaine (mardi, mercredi, jeudi, vendredi, dimanche), une semaine allégée toutes les 3 à 4 semaines.</p></header>
-      <article class="card" id="c-blocs">
-        <div class="card-h"><h3>Les quatre blocs</h3><span class="card-t" id="pl-pos"></span></div>
-        <div class="track" id="track-plan" data-source="semaines plan"></div>
-      </article>
-      <article class="card" id="c-volume">
-        <div class="card-h"><h3>Volume hebdomadaire</h3><span class="card-t">km de course par semaine</span></div>
-        <div class="legend" data-source="volume_hebdo" id="lg-vol"></div>
-        <div class="box dash-skeleton" id="ch-volume" data-source="volume_hebdo" style="min-height:250px"></div>
-      </article>
-      <div class="card-h" style="padding:6px 2px 0"><h3 id="semaines-sec" style="font-family:var(--ax-display);font-size:30px;font-weight:700;line-height:1">Toutes les séances</h3><div class="seg" id="bloc-filters" data-source="semaines"></div></div>
-      <div class="weeks" id="weeks" data-source="semaines plan suivi_plan volume_hebdo"></div>
-    </section>
-
-    <!-- ================= SANTÉ ================= -->
-    <section class="ax-page" id="sante" role="tabpanel" hidden>
-      <header class="ax-ph"><h2>Santé et récupération</h2><p>Tes 30 dernières nuits. Vise 8 h de sommeil et un coucher régulier : c’est là que l’entraînement se transforme en progrès.</p></header>
-      <article class="card" id="moy-sommeil">
-        <div class="card-h"><h3>Moyennes</h3><span class="card-t">7 et 30 dernières nuits</span></div>
-        <div class="tscroll" style="max-height:none">
-          <table data-source="moyennes_sommeil" data-row-key="periode" id="tab-moy">
-            <thead><tr><th data-field="periode">Période</th><th data-field="score" class="num">Score</th><th data-field="duree" class="num">Durée</th><th data-field="profond" class="num hn">Profond</th><th data-field="vfc" class="num">VFC (ms)</th><th data-field="coucher" class="num">Coucher moyen</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </article>
-      <div class="grid2">
-        <article class="card" id="c-duree">
-          <div class="card-h"><h3>Durée et phases</h3><span class="card-t">heures par nuit</span></div>
-          <div class="legend" data-source="sommeil" id="lg-duree"></div>
-          <div class="box dash-skeleton" id="ch-duree" data-source="sommeil" style="min-height:220px"></div>
-        </article>
-        <article class="card" id="c-score">
-          <div class="card-h"><h3>Score de sommeil</h3><span class="card-t">vert dès 75, rouge sous 60</span></div>
-          <div class="box dash-skeleton" id="ch-score" data-source="sommeil regles" style="min-height:220px"></div>
-        </article>
-        <article class="card" id="c-vfc">
-          <div class="card-h"><h3>VFC nocturne</h3><span class="card-t">variabilité cardiaque, en ms</span></div>
-          <div class="legend" data-source="vfc" id="lg-vfc"></div>
-          <div class="box dash-skeleton" id="ch-vfc" data-source="vfc regles" style="min-height:220px"></div>
-          <p class="note">Une baisse de plus de 10 ms sous ta normale signale de la fatigue.</p>
-        </article>
-        <article class="card" id="c-coucher">
-          <div class="card-h"><h3>Heure de coucher</h3><span class="card-t">moyenne <b data-source="moyennes_sommeil" data-field="coucher" data-where="periode=30 nuits" data-fill>—</b></span></div>
-          <div class="box dash-skeleton" id="ch-coucher" data-source="sommeil" style="min-height:220px"></div>
-          <p class="note">Repère pointillé : 23 h 30, à viser la veille des séances clés.</p>
-        </article>
-        <article class="card" id="c-bb">
-          <div class="card-h"><h3>Recharge Body Battery</h3><span class="card-t">points regagnés la nuit</span></div>
-          <div class="box dash-skeleton" id="ch-bb" data-source="body_battery regles" style="min-height:200px"></div>
-        </article>
-        <article class="card" id="c-pas">
-          <div class="card-h"><h3>Pas par jour</h3><span class="card-t">aujourd’hui est en cours</span></div>
-          <div class="box dash-skeleton" id="ch-pas" data-source="pas" style="min-height:200px"></div>
-        </article>
+  <!-- ========== SEMAINE ========== -->
+  <section class="al-page" id="p-semaine" role="tabpanel" hidden>
+    <div class="wk-head" id="wk-head"></div>
+    <div class="al-cols" style="margin-top:8px">
+      <ol class="days" id="days"></ol>
+      <div class="al-stack" style="padding-top:16px">
+        <article><div class="sec-h"><h3>Semaine prochaine</h3><span id="nw-km"></span></div><ol class="nextwk" id="nextwk"></ol></article>
+        <article><div class="sec-h"><h3>Prochains rendez-vous</h3></div><ol class="rdv" id="rdv2"></ol></article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ================= SÉANCES ================= -->
-    <section class="ax-page" id="seances" role="tabpanel" hidden>
-      <header class="ax-ph"><h2>Séances et charge</h2><p>Ce que tes séances font à ton corps, et tout ton historique Garmin depuis juillet 2024.</p></header>
-      <div class="grid3">
-        <article class="card" id="c-equilibre">
-          <div class="card-h"><h3>Équilibre de ta charge</h3><span class="card-t">4 dernières semaines</span></div>
-          <div class="box dash-skeleton" id="ch-equilibre" data-source="equilibre_charge" style="min-height:190px"></div>
-          <p class="note">Bande : la cible Garmin. Point : ta charge. Le plan remet de l’endurance fondamentale là où il en manque.</p>
-        </article>
-        <article class="card" id="c-charge">
-          <div class="card-h"><h3>Charge aiguë et chronique</h3><span class="card-t">60 derniers jours</span></div>
-          <div class="legend" data-source="charge" id="lg-charge"></div>
-          <div class="box dash-skeleton" id="ch-charge" data-source="charge" style="min-height:220px"></div>
-        </article>
-        <article class="card" id="c-vo2">
-          <div class="card-h"><h3>VO2max course</h3><span class="card-t">mesures Garmin</span></div>
-          <div class="box dash-skeleton" id="ch-vo2" data-source="vo2max" style="min-height:200px"></div>
-        </article>
-      </div>
-      <article class="card" id="c-historique">
-        <div class="card-h"><h3>Historique</h3><span class="card-t" id="h-n"></span></div>
-        <div class="tbar">
-          <input type="search" id="h-q" placeholder="Rechercher un lieu, une séance…" aria-label="Rechercher">
-          <select id="h-sport" aria-label="Sport"><option value="course">Course et tapis</option><option value="tout">Toutes les activités</option></select>
-        </div>
-        <div class="tscroll">
-          <table id="h-table" data-source="activites" data-row-key="id">
-            <thead><tr>
-              <th data-field="date_fr" data-k="date"><button>Date</button></th>
-              <th data-field="nom" data-k="nom"><button>Séance</button></th>
-              <th data-field="sport" data-k="sport" class="hn"><button>Sport</button></th>
-              <th data-field="km" data-k="km" class="num"><button>Km</button></th>
-              <th data-field="duree" data-k="duree_s" class="num"><button>Durée</button></th>
-              <th data-source="allures_seances" data-field="allure" data-k="allure" class="num"><button>Allure</button></th>
-              <th data-field="fc_moy" data-k="fc_moy" class="num hn"><button>FC moy.</button></th>
-              <th data-field="dplus" data-k="dplus" class="num hn"><button>D+</button></th>
-            </tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </article>
-    </section>
-
-    <!-- ================= REPÈRES ================= -->
-    <section class="ax-page" id="reperes" role="tabpanel" hidden>
-      <header class="ax-ph"><h2>Allures et repères</h2><p>Tes allures d’entraînement, les règles du feu du jour et où tu en es par rapport à l’objectif.</p></header>
-      <article class="card" id="c-allures">
-        <div class="card-h"><h3>Tes allures</h3><span class="card-t">VMA estimée 18,5 km/h (10 km en 35:16), recalée fin décembre</span></div>
-        <div class="tscroll" style="max-height:none">
-          <table data-source="allures" data-row-key="zone" id="tab-allures">
-            <thead><tr><th data-field="zone">Zone</th><th data-field="nom">Nom</th><th data-field="allure">Allure</th><th data-field="fc" class="hn">FC (bpm)</th><th data-field="usage" class="hn">Repère</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <p class="note">Ta montre affiche ces allures pendant chaque séance. En endurance, si ta FC passe 150 alors que tu es dans l’allure, ralentis encore un peu.</p>
-      </article>
-      <article class="card" id="c-objectif">
-        <div class="card-h"><h3>Toi face à l’objectif</h3><span class="card-t">prédictions Garmin du jour</span></div>
-        <div class="goal" data-source="ecart_objectif">
-          <div><div class="cap">Prédiction Garmin sur semi</div><div class="big" data-source="ecart_objectif" data-field="prediction" data-row="0" data-fill>—</div></div>
-          <div><div class="cap">Objectif</div><div class="big" data-source="ecart_objectif" data-field="objectif" data-row="0" data-fill>—</div></div>
-          <div><div class="cap">Écart à combler</div><div class="big" data-source="ecart_objectif" data-field="ecart" data-row="0" data-fill>—</div></div>
-        </div>
-        <div class="preds" id="preds" data-source="predictions"></div>
-        <p class="note" style="margin-top:12px">Ton record sur 10 km : <b data-source="records" data-field="temps" data-where="epreuve=10 km" data-fill>—</b>, objectif de la saison sous 35:00 (3:30 /km). Ce niveau correspond à un semi autour de 1:18–1:20 : le 1:20 est réaliste si l’entraînement suit, 1:25 reste le plancher.</p>
-      </article>
-      <div class="grid2">
-        <article class="card" id="c-records">
-          <div class="card-h"><h3>Records</h3><span class="card-t">Garmin, 10 km corrigé</span></div>
-          <ul class="reflist" id="records" data-source="records"></ul>
-        </article>
-        <article class="card" id="c-regles">
-          <div class="card-h"><h3>Règles du feu du jour</h3></div>
-          <div class="rules" id="rules" data-source="regles"></div>
-          <div class="rules">
-            <div class="rule-c c-vert"><span class="dot"></span><div><b>GO</b> si tout est vert : séance prévue telle quelle.</div></div>
-            <div class="rule-c c-orange"><span class="dot"></span><div><b>AJUSTE</b> avec 1 ou 2 signaux orange : fractionné réduit d’un tiers, ou 40 min à 5:20–5:45 /km. Endurance et sortie longue raccourcies de 20 %, à 5:25–5:50 /km.</div></div>
-            <div class="rule-c c-rouge"><span class="dot"></span><div><b>REPOS</b> avec 1 rouge ou 3 orange : repos ou 30 min à 5:50–6:30 /km, la séance clé glisse de 24 à 48 h. Une douleur qui modifie ta foulée, c’est stop quel que soit le feu.</div></div>
-          </div>
-        </article>
-      </div>
-    </section>
-  </main>
+  <!-- ========== OBJECTIFS ========== -->
+  <section class="al-page" id="p-objectifs" role="tabpanel" hidden>
+    <div class="goals" id="goals"></div>
+    <div class="al-cols" style="margin-top:32px">
+      <article><div class="sec-h"><h3>Tes allures</h3><span>affichées sur la montre</span></div><ol class="paces" id="paces"></ol></article>
+      <article><div class="sec-h"><h3>Ta forme sur 4 semaines</h3></div><dl class="trends" id="trends"></dl></article>
+    </div>
+  </section>
 </div>
   </div>
 </div>
 <script src="vendor/d3.min.js"></script>
 <script id="src-calcs" type="text/plain">
-/* ---------- Calculs ---------- */
-dash.calc('feu_du_jour', {
-  title: 'Feu du jour',
-  description: 'Compare la dernière nuit (sommeil, VFC, recharge) et la forme du jour Garmin (readiness) aux seuils des règles du coach.',
-  inputs: ['sommeil', 'vfc', 'etat_du_jour', 'body_battery', 'regles'],
-  fn: (sommeil, vfc, etat_du_jour, body_battery, regles) => {
-    const last = (rows) => rows.slice().sort((a, b) => (a.date < b.date ? -1 : 1))[rows.length - 1];
-    const nuit = last(sommeil), v = last(vfc), bb = last(body_battery);
-    const ready = etat_du_jour.find((r) => r.cle === 'readiness');
-    const min = Math.round(Number(nuit.heures) * 60);
-    const valeurs = {
-      sommeil_score: [Number(nuit.score), nuit.score + '/100'],
-      sommeil_heures: [Number(nuit.heures), Math.floor(min / 60) + ' h ' + String(min % 60).padStart(2, '0')],
-      vfc_nuit: [Number(v.vfc_nuit), v.vfc_nuit + ' ms'],
-      readiness: [Number(ready.valeur), ready.valeur + '/100'],
-      recharge: [Number(bb.recharge), '+' + bb.recharge],
-    };
-    const rows = regles.map((r) => {
-      const [x, affichage] = valeurs[r.signal];
-      const couleur = x >= Number(r.vert_des) ? 'vert' : x >= Number(r.orange_des) ? 'orange' : 'rouge';
-      return { signal: r.signal, libelle: r.libelle, affichage, couleur, seuil: 'vert dès ' + r.vert_des + ', orange dès ' + r.orange_des };
-    });
-    rows.push({ signal: 'vfc_statut', libelle: 'Tendance VFC (7 j)', affichage: v.statut,
-      couleur: v.statut === 'Déséquilibré' ? 'orange' : v.statut === 'Bas' ? 'rouge' : 'vert', seuil: 'Équilibré = vert' });
-    const nbR = rows.filter((r) => r.couleur === 'rouge').length;
-    const nbO = rows.filter((r) => r.couleur === 'orange').length;
-    const couleur = nbR > 0 || nbO >= 3 ? 'rouge' : nbO > 0 ? 'orange' : 'vert';
-    rows.push({ signal: 'global', libelle: 'Feu du jour', affichage: { vert: 'GO', orange: 'AJUSTE', rouge: 'REPOS' }[couleur],
-      couleur, seuil: nbO + ' orange, ' + nbR + ' rouge', date: nuit.date });
-    return rows;
-  },
-});
-
-dash.calc('suivi_plan', {
-  title: 'Suivi du plan',
-  description: 'Pour chaque séance prévue : faite si une course ou un tapis existe ce jour-là dans Garmin, avec les km réels.',
-  inputs: ['plan', 'activites', 'sommeil'],
-  fn: (plan, activites, sommeil) => {
-    const jour = sommeil.map((r) => r.date).sort()[sommeil.length - 1];
-    const kmJour = {};
-    activites.filter((a) => a.sport === 'Course' || a.sport === 'Tapis')
-      .forEach((a) => { kmJour[a.date] = (kmJour[a.date] || 0) + Number(a.km); });
-    return plan.map((p) => {
-      const km = kmJour[p.date] || 0;
-      const statut = p.type === 'REPOS' ? 'repos' : km > 0 ? 'fait' : p.date < jour ? 'non fait' : 'à venir';
-      return { id: p.id, statut, km_reel: km > 0 ? Math.round(km * 10) / 10 : null };
-    });
-  },
-});
-
-dash.calc('volume_hebdo', {
-  title: 'Volume hebdo réalisé vs prévu',
-  description: 'Km de course (extérieur + tapis) par semaine du lundi, comparés aux km du plan.',
-  inputs: ['activites', 'plan', 'sommeil'],
-  fn: (activites, plan, sommeil) => {
-    const lundi = (s) => { const d = new Date(s + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7)); return d.toISOString().slice(0, 10); };
-    const dernier = sommeil.map((r) => r.date).sort()[sommeil.length - 1];
-    const j1 = new Date(dernier + 'T00:00:00Z'); j1.setUTCDate(j1.getUTCDate() + 1);
-    const jour = j1.toISOString().slice(0, 10);
-    const real = {}, prev = {};
-    activites.filter((a) => a.sport === 'Course' || a.sport === 'Tapis')
-      .forEach((a) => { const k = lundi(a.date); real[k] = (real[k] || 0) + Number(a.km); });
-    plan.forEach((p) => { const k = lundi(p.date); prev[k] = (prev[k] || 0) + Number(p.km); });
-    const rows = [];
-    for (let d = new Date('2026-07-13T00:00:00Z'); d <= new Date('2027-03-22T00:00:00Z'); d.setUTCDate(d.getUTCDate() + 7)) {
-      const k = d.toISOString().slice(0, 10);
-      rows.push({ semaine: k, realise: k <= jour ? Math.round((real[k] || 0) * 10) / 10 : null,
-        prevu: prev[k] != null ? Math.round(prev[k] * 10) / 10 : null });
-    }
-    return rows;
-  },
-});
-
-dash.calc('moyennes_sommeil', {
-  title: 'Moyennes de sommeil',
-  description: 'Moyennes des 7 et 30 dernières nuits : score, durée, sommeil profond, VFC et heure de coucher.',
-  inputs: ['sommeil'],
-  fn: (sommeil) => {
-    const rows = sommeil.slice().sort((a, b) => (a.date < b.date ? -1 : 1));
-    const moy = (r, f) => r.reduce((s, x) => s + f(x), 0) / r.length;
-    const hm = (min) => Math.floor(min / 60) + ' h ' + String(min % 60).padStart(2, '0');
-    const coucher = (x) => { const [h, m] = x.coucher.split(':').map(Number); const t = h * 60 + m; return t < 18 * 60 ? t + 1440 : t; };
-    const clock = (t) => { const m = Math.round(t) % 1440; return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); };
-    return [['7 nuits', rows.slice(-7)], ['30 nuits', rows.slice(-30)]].map(([periode, r]) => ({
-      periode,
-      score: Math.round(moy(r, (x) => Number(x.score))),
-      duree: hm(Math.round(moy(r, (x) => Number(x.heures)) * 60)),
-      profond: Math.round(moy(r, (x) => Number(x.profond_min))) + ' min',
-      vfc: Math.round(moy(r, (x) => Number(x.vfc_nuit))),
-      coucher: clock(moy(r, coucher)),
-    }));
-  },
-});
-
-dash.calc('allures_seances', {
-  title: 'Allure par séance',
-  description: 'Allure moyenne (min/km) des courses, vitesse (km/h) des autres activités : durée ÷ distance.',
-  inputs: ['activites'],
-  fn: (activites) => activites.map((a) => {
-    const km = Number(a.km), s = Number(a.duree_s);
-    let allure = '—';
-    if ((a.sport === 'Course' || a.sport === 'Tapis') && km > 0) {
-      const p = Math.round(s / km);
-      allure = Math.floor(p / 60) + ':' + String(p % 60).padStart(2, '0') + ' /km';
-    } else if (km > 0.5) allure = (km / (s / 3600)).toFixed(1) + ' km/h';
-    return { id: a.id, allure };
-  }),
-});
-
-dash.calc('meilleur_10k', {
-  title: 'Meilleur 10 km à la montre',
-  description: 'La course extérieure de 9,95 à 10,3 km la plus rapide de l’historique.',
-  inputs: ['activites'],
-  fn: (activites) => {
-    const c = activites.filter((a) => a.sport === 'Course' && Number(a.km) >= 9.95 && Number(a.km) <= 10.3)
-      .sort((a, b) => Number(a.duree_s) - Number(b.duree_s))[0];
-    return c ? [{ date: c.date, nom: c.nom + ', ' + c.date_fr, temps: c.duree }] : [];
-  },
-});
-
-dash.calc('ecart_objectif', {
-  title: 'Écart prédiction vs objectif',
-  description: 'Prédiction Garmin du semi moins l’objectif de 1:20:00 (4 800 s).',
-  inputs: ['predictions'],
-  fn: (predictions) => {
-    const semi = predictions.find((p) => p.distance === 'Semi');
-    const d = Number(semi.secondes) - 4800;
-    const a = Math.abs(d);
-    return [{ prediction: semi.temps, objectif: '1:20:00', ecart: d > 0 ? Math.floor(a / 60) + ':' + String(a % 60).padStart(2, '0') : 'atteint' }];
-  },
-});
 </script>
 <script id="src-ui" type="text/plain">
 (() => {
   const RACE = '2027-03-28';
-  const ACC = '#0E8F9C', NAVY = '#4E6CA8', SKY = '#6FC3D2', VIOLET = '#8B7FE0', AMBER = '#E0A23A', CORAL = '#E06C75';
-  const MUTED = 'color-mix(in srgb, var(--color-fg) 24%, transparent)';
-  const STOP = '#D64545', WARN = '#D98A16';
-  const TYPE = {
-    EF: ['Endurance', SKY], REC: ['Récup', MUTED], SL: ['Sortie longue', ACC], VMA: ['VMA', CORAL],
-    SEUIL: ['Seuil', AMBER], AS21: ['Allure semi', VIOLET], TEMPO: ['Tempo', NAVY], COTES: ['Côtes', '#A07855'],
-    FARTLEK: ['Fartlek', '#C77DBA'], A10: ['Allure 10 km', '#C2504B'], TEST: ['Test', 'var(--color-fg)'], COURSE: ['Course', 'var(--color-fg)'], REPOS: ['Repos', MUTED],
-  };
-  const KEY = ['VMA', 'SEUIL', 'AS21', 'A10', 'TEMPO', 'COTES', 'FARTLEK', 'TEST', 'COURSE'];
-  const BAD = ['error', 'missing', 'declined', 'connect'];
-  const BLOCS = ['Transition', 'Fondations', 'Développement', 'Spécifique semi', 'Affûtage'];
-  const MSG = { vert: 'Tous les voyants sont au vert : fais la séance prévue telle quelle.', orange: 'Ton corps récupère encore : on allège la séance du jour.', rouge: 'Récupération insuffisante : repos ou footing à 5:50–6:30 /km.' };
-  const ICON = {
-    vert: '<svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
-    orange: '<svg class="i" viewBox="0 0 24 24"><path d="M12 7v6.5M12 17.2v.1"/></svg>',
-    rouge: '<svg class="i" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg>',
-    flag: '<svg class="i" viewBox="0 0 24 24"><path d="M5.5 21V4h11l-2.2 4 2.2 4H5.5"/></svg>',
-  };
-
   const $ = (s) => document.querySelector(s);
-  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
-  const svgEl = (markup) => { const t = document.createElement('template'); t.innerHTML = markup.trim(); return t.content.firstChild; };
-  const mark = (e, src, field, where) => { e.setAttribute('data-source', src); if (field) e.setAttribute('data-field', field); if (where != null) e.setAttribute('data-where', where); return e; };
-  const unmark = (e) => { ['data-source', 'data-field', 'data-where', 'data-row'].forEach((a) => e.removeAttribute(a)); return e; };
-  const enc = (v) => String(v).replace(/%/g, '%25').replace(/&/g, '%26').replace(/=/g, '%3D');
-  const STAT = { fait: 'fait', 'non fait': 'nonfait', 'à venir': 'avenir', repos: 'repos' };
-  const SHORT = { sommeil_score: 'sommeil', sommeil_heures: 'durée de sommeil', vfc_nuit: 'VFC', readiness: 'forme du jour', recharge: 'recharge Body Battery', vfc_statut: 'tendance VFC' };
+  const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+  const S = (id) => dash.data(id).status;
+  const R = (id) => (S(id) === 'ok' ? dash.data(id).data : []);
+  const ok = (...ids) => ids.every((id) => S(id) === 'ok');
   const today = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
   const dU = (s) => new Date(s + 'T12:00:00Z');
   const fd = (s, o) => dU(s).toLocaleDateString('fr-FR', Object.assign({ timeZone: 'UTC' }, o));
-  const fShort = (s) => fd(s, { day: 'numeric', month: 'short' });
-  const fDay = (s) => fd(s, { weekday: 'short', day: 'numeric', month: 'short' });
-  const fLong = (s) => fd(s, { weekday: 'long', day: 'numeric', month: 'long' });
   const nDays = (a, b) => Math.round((dU(b) - dU(a)) / 864e5);
   const addDays = (s, n) => { const d = dU(s); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
   const monday = (s) => addDays(s, -((dU(s).getUTCDay() + 6) % 7));
-  const S = (id) => dash.data(id).status;
-  const R = (id) => (S(id) === 'ok' ? dash.data(id).data : []);
-  const ready = (...ids) => ids.every((id) => S(id) === 'ok');
-  const broken = (...ids) => ids.some((id) => BAD.includes(S(id)));
-  const fail = (box) => { box.classList.remove('dash-skeleton'); box.replaceChildren(el('div', 'fail', 'Les données n’ont pas pu être chargées')); };
-  const pill = (type) => { const t = TYPE[type] || [type, MUTED]; const p = el('span', 'pill'); p.style.setProperty('--tc', t[1]); p.append(el('i'), t[0]); return p; };
-  const hmin = (h) => { const m = Math.round(Number(h) * 60); return Math.floor(m / 60) + ' h ' + String(m % 60).padStart(2, '0'); };
-  const fmtTime = (h) => { const m = Math.round(h * 60) % 1440; return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); };
   const byDate = (rows) => rows.slice().sort((a, b) => (a.date < b.date ? -1 : 1));
-  const nf1 = d3.format('.1f'), nf0 = (v) => d3.format(',.0f')(v).replace(/,/g, ' ');
-  let animated = false;
-  function fillMarks() {
-    document.querySelectorAll('.ax [data-fill]').forEach((e) => {
-      const src = e.getAttribute('data-source'), field = e.getAttribute('data-field');
-      if (S(src) !== 'ok') return;
-      const rows = R(src), w = e.getAttribute('data-where'), ri = e.getAttribute('data-row');
-      let row = null;
-      if (w) { const cond = w.split('&').map((p) => p.split('=').map(decodeURIComponent)); row = rows.find((r) => cond.every(([k, v]) => String(r[k]) === v)); }
-      else if (ri != null) row = rows[Number(ri)];
-      e.textContent = row && row[field] != null && row[field] !== '' ? String(row[field]) : '—';
-    });
-  }
+  const last = (rows) => byDate(rows)[rows.length - 1];
+  const hmin = (h) => { const m = Math.round(Number(h) * 60); return Math.floor(m / 60) + ' h ' + String(m % 60).padStart(2, '0'); };
+  const paceOf = (a) => { const km = Number(a.km), s = Number(a.duree_s); if (!km) return ''; const p = Math.round(s / km); return Math.floor(p / 60) + ':' + String(p % 60).padStart(2, '0'); };
+  const frNum = (v, d = 1) => Number(v).toLocaleString('fr-FR', { maximumFractionDigits: d });
+  const etat = (k) => (R('etat_du_jour').find((r) => r.cle === k) || {}).valeur;
 
-  /* ---------- graphique générique (axe x en bandes) ---------- */
-  function chart(box, o) {
-    box.classList.remove('dash-skeleton');
-    box.replaceChildren();
-    const W = Math.max(260, Math.round(box.clientWidth)), H = o.height || 220, top = 12, bot = 24;
-    const rows = o.rows;
-    const svg = d3.select(box).append('svg').attr('class', 'ax-svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', o.label || '');
-    const vals = [];
-    rows.forEach((r) => {
-      if (o.stack) vals.push(d3.sum(o.bars, (b) => b.get(r) || 0));
-      else (o.bars || []).forEach((b) => vals.push(b.get(r)));
-      (o.lines || []).forEach((l) => vals.push(l.get(r)));
-    });
-    (o.refs || []).forEach((rf) => vals.push(rf.y));
-    const fin = vals.filter((v) => v != null && !Number.isNaN(v));
-    const lo = o.y ? o.y[0] : (o.zero === false ? d3.min(fin) : Math.min(0, d3.min(fin)));
-    const hi = o.y ? o.y[1] : d3.max(fin);
-    const y = d3.scaleLinear([lo, hi], [H - bot, top]);
-    if (!o.y) y.nice(o.ticks || 4);
-    const ticks = o.tickValues || y.ticks(o.ticks || 4);
-    const yf = o.yFmt || ((v) => nf0(v));
-    const defs = svg.append('defs');
-    const g = svg.append('g');
-    let mw = 0;
-    const tl = g.selectAll('text.ytk').data(ticks).join('text').attr('class', 'tick ytk').attr('text-anchor', 'end').attr('dy', '0.32em').attr('y', (t) => y(t)).text(yf);
-    tl.each(function () { mw = Math.max(mw, this.getComputedTextLength()); });
-    let rw = 0;
-    (o.refs || []).forEach((rf) => { if (rf.label) { const n = g.append('text').attr('class', 'reflab').text(rf.label); rw = Math.max(rw, n.node().getComputedTextLength()); n.remove(); } });
-    const ml = Math.ceil(mw) + 12, mr = o.mr != null ? o.mr : (rw ? Math.ceil(rw) + 10 : 4);
-    tl.attr('x', ml - 8);
-    const x = d3.scaleBand(rows.map(o.key), [ml, W - mr]).padding(o.padding != null ? o.padding : 0.28);
-    const cx = (r) => x(o.key(r)) + x.bandwidth() / 2;
-    g.insert('g', ':first-child').selectAll('line').data(ticks).join('line').attr('class', 'grid').attr('x1', ml).attr('x2', W - mr).attr('y1', (t) => y(t)).attr('y2', (t) => y(t));
-    const lw = o.xLabelW || 58, every = Math.max(1, Math.ceil(rows.length / Math.max(2, Math.floor((W - ml - mr) / lw))));
-    rows.forEach((r, i) => { if (i % every === 0) g.append('text').attr('class', 'tick').attr('x', cx(r)).attr('y', H - 5).attr('text-anchor', 'middle').text(o.xFmt(r)); });
-    (o.refs || []).forEach((rf) => {
-      g.append('line').attr('class', 'ref').attr('x1', ml).attr('x2', W - mr).attr('y1', y(rf.y)).attr('y2', y(rf.y));
-      if (rf.label) g.append('text').attr('class', 'reflab').attr('x', W - mr + 6).attr('y', y(rf.y)).attr('dy', '0.32em').text(rf.label);
-    });
-    if (o.nowKey) {
-      const r = rows.find((q) => o.key(q) === o.nowKey);
-      if (r) { g.append('line').attr('class', 'now').attr('x1', cx(r)).attr('x2', cx(r)).attr('y1', top - 2).attr('y2', H - bot); g.append('text').attr('class', 'nowlab').attr('x', cx(r) + 6).attr('y', top + 6).text('cette semaine'); }
-    }
-    const base = y(Math.max(lo, 0));
-    if (o.bars && o.stack) {
-      rows.forEach((r) => {
-        let acc = 0;
-        o.bars.forEach((b, bi) => {
-          const v = b.get(r) || 0; if (!v) return;
-          const last = bi === o.bars.length - 1;
-          g.append('rect').attr('x', x(o.key(r))).attr('width', x.bandwidth()).attr('y', y(acc + v)).attr('height', Math.max(0, y(acc) - y(acc + v) - (last ? 0 : 1.5)))
-            .attr('rx', last ? Math.min(3, x.bandwidth() / 2) : 0).style('fill', b.color);
-          acc += v;
-        });
-      });
-    } else if (o.bars) {
-      o.bars.forEach((b) => {
-        const ins = b.inset ? x.bandwidth() * b.inset : 0, bw = Math.max(1, x.bandwidth() - 2 * ins);
-        g.selectAll(null).data(rows.filter((r) => b.get(r) != null)).join('rect')
-          .attr('x', (r) => x(o.key(r)) + ins).attr('width', bw)
-          .attr('y', (r) => Math.min(y(b.get(r)), base)).attr('height', (r) => Math.abs(base - y(b.get(r))))
-          .attr('rx', Math.min(4, bw / 2))
-          .style('fill', (r) => (b.ghost ? 'none' : (b.colorOf ? b.colorOf(r) : b.color)))
-          .style('stroke', b.ghost ? b.color : null).style('stroke-width', b.ghost ? 1.4 : null).style('stroke-dasharray', b.ghost ? '3 2.5' : null).style('opacity', b.ghost ? 0.85 : null);
-      });
-    }
-    (o.lines || []).forEach((l, li) => {
-      const ok = (r) => l.get(r) != null && !Number.isNaN(l.get(r));
-      if (l.area) {
-        const gid = 'axg' + Math.random().toString(36).slice(2, 8);
-        const lg = defs.append('linearGradient').attr('id', gid).attr('x1', 0).attr('x2', 0).attr('y1', 0).attr('y2', 1);
-        [[0, 0.24], [0.5, 0.08], [1, 0]].forEach(([o2, op]) => lg.append('stop').attr('offset', o2).style('stop-color', l.color).style('stop-opacity', op));
-        g.append('path').datum(rows).style('fill', `url(#${gid})`).attr('d', d3.area().defined(ok).x(cx).y0(base).y1((r) => y(l.get(r)))(rows));
-      }
-      if (!l.noLine) g.append('path').datum(rows).attr('class', 'ln').style('stroke', l.color).attr('stroke-width', l.width || 2.2)
-        .attr('d', d3.line().defined(ok).x(cx).y((r) => y(l.get(r)))(rows));
-      if (l.dots) g.selectAll(null).data(rows.filter(ok)).join('circle').attr('cx', cx).attr('cy', (r) => y(l.get(r))).attr('r', l.r || 3)
-        .style('fill', (r) => (l.dotColor ? l.dotColor(r) : l.color)).style('stroke', 'var(--ax-surface)').style('stroke-width', 1.5);
-    });
-    const tip = el('div', 'ax-tip'); box.appendChild(tip);
-    const rule = g.append('line').attr('class', 'rule').attr('y1', top).attr('y2', H - bot).style('opacity', 0);
-    g.selectAll(null).data(rows).join('rect').attr('class', 'hit').attr('x', (r) => x(o.key(r)) - x.step() * x.paddingInner() / 2).attr('width', x.step()).attr('y', 0).attr('height', H)
-      .on('mouseenter mousemove', (ev, r) => {
-        const t = o.tip(r);
-        tip.replaceChildren(el('div', 'tt', t.title));
-        t.lines.forEach((ln) => { const row = el('div', 'row'); if (ln.color) { const i = el('i'); i.style.background = ln.color; row.append(i); } row.append(el('span', null, ln.label), el('b', null, ln.value)); tip.append(row); });
-        const sc = box.clientWidth / W, px = cx(r) * sc;
-        rule.attr('x1', cx(r)).attr('x2', cx(r)).style('opacity', 1);
-        tip.style.opacity = 1;
-        const tw = tip.offsetWidth;
-        tip.style.left = Math.max(0, Math.min(box.clientWidth - tw, px + 14 > box.clientWidth - tw ? px - tw - 14 : px + 14)) + 'px';
-        tip.style.top = '6px';
-      })
-      .on('mouseleave', () => { tip.style.opacity = 0; rule.style('opacity', 0); });
-  }
-  function spark(box, values, color, lo) {
-    box.replaceChildren();
-    const W = Math.max(100, box.clientWidth), H = 24, n = values.length;
-    if (n < 2) return;
-    const x = d3.scaleLinear([0, n - 1], [2, W - 4]);
-    const y = d3.scaleLinear([lo != null ? lo : d3.min(values), d3.max(values)], [H - 3, 3]);
-    const svg = d3.select(box).append('svg').attr('class', 'ax-svg').attr('width', '100%').attr('height', H).attr('viewBox', `0 0 ${W} ${H}`).attr('preserveAspectRatio', 'none');
-    svg.append('path').attr('class', 'ln').style('stroke', color).attr('stroke-width', 1.8).attr('d', d3.line().x((d, i) => x(i)).y((d) => y(d))(values));
-    svg.append('circle').attr('cx', x(n - 1)).attr('cy', y(values[n - 1])).attr('r', 3).style('fill', color);
-  }
-  const legend = (box, items) => {
-    box.replaceChildren(...items.map(([label, color, kind]) => { const s = el('span'); const i = el('i', kind || ''); if (kind === 'gh') i.style.color = color; else i.style.background = color; s.append(i, label); return s; }));
+  const TYPE = {
+    EF: ['Endurance', '#6FC3D2'], REC: ['Récup', '#9AA8AA'], SL: ['Sortie longue', '#0E8F9C'], VMA: ['VMA', '#E06C75'],
+    SEUIL: ['Seuil', '#E0A23A'], AS21: ['Allure semi', '#8B7FE0'], A10: ['Allure 10 km', '#C2504B'], TEMPO: ['Tempo', '#4E6CA8'],
+    COTES: ['Côtes', '#A07855'], FARTLEK: ['Fartlek', '#C77DBA'], TEST: ['Test', '#132224'], COURSE: ['Course', '#132224'], REPOS: ['Repos', '#9AA8AA'],
   };
+  const KEY = ['VMA', 'SEUIL', 'AS21', 'A10', 'TEMPO', 'COTES', 'FARTLEK', 'TEST', 'COURSE'];
+  const ZCOL = { REC: '#9AA8AA', EF: '#6FC3D2', SL: '#0E8F9C', AM: '#4E6CA8', AS21: '#8B7FE0', SEUIL: '#E0A23A', A10: '#C2504B', 'VMA-L': '#E06C75', 'VMA-C': '#C94F5B', LD: '#132224' };
+  const pill = (type) => { const t = TYPE[type] || [type, '#9AA8AA']; const p = el('span', 'pill'); p.style.setProperty('--tc', t[1]); p.append(el('i'), t[0]); return p; };
+  const SHORT = { sommeil_score: 'Sommeil', sommeil_heures: 'Durée', vfc_nuit: 'VFC', readiness: 'Forme', recharge: 'Recharge', vfc_statut: 'Tendance VFC' };
+  const WORD = { vert: 'GO', orange: 'AJUSTE', rouge: 'REPOS' };
+  const MSG = { vert: 'Tous les voyants sont au vert.', orange: 'Ton corps récupère encore : on allège.', rouge: 'Récupération insuffisante : on lève le pied.' };
 
-  /* ---------- parcours (du 14 octobre à l'arrivée) ---------- */
-  function drawTrack(box) {
-    const sem = R('semaines');
-    if (!sem.length) return;
-    const plan = R('plan');
-    const t = today(), start = sem[0].debut, total = nDays(start, RACE) + 1;
-    const posD = Math.max(0, Math.min(total, nDays(start, t) + 0.5));
-    const W = box.clientWidth || 600;
-    box.replaceChildren();
-    const bar = el('div', 'trk-bar');
-    sem.slice(1).forEach((w) => { const tk = el('div', 'trk-tick'); tk.style.left = (nDays(start, w.debut) / total) * 100 + '%'; bar.append(tk); });
-    BLOCS.forEach((b) => {
-      const ws = sem.filter((w) => w.bloc === b); if (!ws.length) return;
-      const from = nDays(start, ws[0].debut), to = Math.min(total, nDays(start, ws[ws.length - 1].fin) + 1);
-      const seg = el('div', 'trk-seg');
-      seg.style.left = `calc(${(from / total) * 100}% + 2px)`; seg.style.width = `calc(${((to - from) / total) * 100}% - 4px)`;
-      const frac = Math.max(0, Math.min(1, (posD - from) / (to - from)));
-      if (frac >= 1) seg.classList.add('done');
-      const fill = el('i'); fill.style.width = (frac * 100) + '%'; seg.append(fill); bar.append(seg);
-      const px = ((to - from) / total) * W;
-      if (px > 70) {
-        const lab = el('div', 'trk-lab'); lab.style.left = `calc(${(from / total) * 100}% + 2px)`;
-        lab.append(el('b', null, b === 'Spécifique semi' ? 'Spécifique' : b));
-        if (px > 150) lab.append('S' + ws[0].semaine + (ws.length > 1 ? '–S' + ws[ws.length - 1].semaine : ''));
-        bar.append(lab);
-      }
+  /* ---------- feu du jour ---------- */
+  function feu() {
+    if (!ok('sommeil', 'vfc', 'etat_du_jour', 'body_battery', 'regles')) return null;
+    const nuit = last(R('sommeil')), v = last(R('vfc')), bb = last(R('body_battery'));
+    const min = Math.round(Number(nuit.heures) * 60);
+    const val = {
+      sommeil_score: [Number(nuit.score), nuit.score],
+      sommeil_heures: [Number(nuit.heures), Math.floor(min / 60) + ' h ' + String(min % 60).padStart(2, '0')],
+      vfc_nuit: [Number(v.vfc_nuit), v.vfc_nuit + ' ms'],
+      readiness: [Number(etat('readiness')), etat('readiness')],
+      recharge: [Number(bb.recharge), '+' + bb.recharge],
+    };
+    const sig = R('regles').filter((r) => val[r.signal]).map((r) => {
+      const [x, aff] = val[r.signal];
+      return { k: r.signal, aff, c: x >= Number(r.vert_des) ? 'vert' : x >= Number(r.orange_des) ? 'orange' : 'rouge', seuil: Number(r.vert_des), unite: r.unite };
     });
-    const meX = (posD / total) * W, pp0 = posD / total;
-    const busy = [pp0 < 0.08 ? [meX - 10, meX + 150] : pp0 > 0.92 ? [meX - 150, meX + 10] : [meX - 75, meX + 75]];
-    const free = (a2, b2) => busy.every(([x0, x1]) => b2 + 10 < x0 || a2 - 10 > x1);
-    plan.filter((p) => p.type === 'TEST' || p.type === 'COURSE').forEach((p) => {
-      const d = nDays(start, p.date) + 0.5;
-      const fin = p.type === 'COURSE' && p.date === RACE;
-      const ms = el('div', 'trk-ms' + (fin ? ' end' : ''));
-      ms.style.left = (d / total) * 100 + '%';
-      if (fin) ms.append(svgEl(ICON.flag));
-      const lab = el('span'); lab.append(el('b', null, fin ? 'Le semi' : p.type === 'COURSE' ? 'Trail 4 Châteaux' : p.titre.replace(' demi-Cooper', '').replace(' : objectif sous 35:00', '')), fShort(p.date));
-      const x = (d / total) * W, rng = fin ? [x - 72, x + 4] : [x - 46, x + 46];
-      if (free(rng[0], rng[1])) busy.push(rng); else lab.style.visibility = 'hidden';
-      ms.append(lab); bar.append(ms);
+    sig.push({ k: 'vfc_statut', aff: v.statut, c: v.statut === 'Déséquilibré' ? 'orange' : v.statut === 'Bas' ? 'rouge' : 'vert' });
+    const nR = sig.filter((s) => s.c === 'rouge').length, nO = sig.filter((s) => s.c === 'orange').length;
+    return { c: nR || nO >= 3 ? 'rouge' : nO ? 'orange' : 'vert', sig, nuit };
+  }
+  function adaptation(c, type) {
+    if (!type || type === 'REPOS') return 'Jour de repos : dors, hydrate-toi, 10 min de mobilité si tu veux.';
+    if (type === 'COURSE') return 'Jour de course : suis le plan de course ci-dessus, ne pars pas trop vite.';
+    if (c === 'rouge') return 'Repos, ou 30 min à 5:45–6:30 /km. La séance prévue glisse de 24 à 48 h.';
+    if (c === 'orange') {
+      if (KEY.includes(type)) return 'Version allégée : un tiers de répétitions en moins, côté lent de la fourchette. Si les jambes ne répondent pas après l’échauffement, fais 40 min à 5:15–5:45 /km.';
+      if (type === 'REC') return 'Inchangée : c’est déjà de la récupération.';
+      return 'Raccourcis de 20 % et cours à 5:15–5:45 /km.';
+    }
+    return null;
+  }
+  const mainPace = (p) => {
+    if (!p) return null;
+    if (p.type === 'TEST') return ['À fond', ''];
+    if (p.type === 'COTES') return ['Effort 10 km', 'en côte'];
+    const parts = p.detail.split(/, puis /);
+    const src = parts.length > 1 ? parts[1] : parts[0];
+    const m = src.match(/(\d:\d\d(?:–\d:\d\d)?) \/km/) || p.detail.match(/(\d:\d\d(?:–\d:\d\d)?) \/km/);
+    return m ? [m[1], '/km'] : null;
+  };
+  const steps = (detail) => {
+    let d = detail.replace(/\.\s*$/, '');
+    const out = [];
+    d.split(/, puis |\. (?=[A-ZÉ])/).forEach((s) => {
+      const k = s.split(/, (?=retour au calme)/);
+      k.forEach((x) => out.push(x.charAt(0).toUpperCase() + x.slice(1)));
     });
-    const cur = sem.find((w) => t >= w.debut && t <= w.fin);
-    const me = el('div', 'trk-me'); me.style.left = (posD / total) * 100 + '%';
-    const ml = el('div', 'trk-me-l');
-    ml.append(el('b', null, 'J‑' + Math.max(0, nDays(t, RACE))), cur ? 'semaine ' + cur.semaine : (t < start ? 'avant le départ' : 'arrivée'));
-    const pp = posD / total; if (pp < 0.08) ml.classList.add('st'); else if (pp > 0.92) ml.classList.add('en');
-    me.append(ml); bar.append(me);
-    box.append(bar);
-    if (!animated) { box.classList.add('anim'); animated = true; }
-    return { pct: Math.round((posD / total) * 100), cur };
+    return out.map((s) => s.replace(/\.$/, '') + '.');
+  };
+  const runsOn = (d) => R('activites').filter((a) => a.date === d && ['Course', 'Tapis', 'Trail'].includes(a.sport));
+
+  /* ---------- AUJOURD'HUI ---------- */
+  function drawJour() {
+    const t = today(), F = feu();
+    const root = $('#al');
+    $('#al-date').textContent = fd(t, { weekday: 'long', day: 'numeric', month: 'long' }) + ', J‑' + Math.max(0, nDays(t, RACE));
+    const coach = ok('coach') ? R('coach').find((r) => r.date === t) : null;
+    // verdict
+    const vd = $('#verdict');
+    if (F) {
+      root.dataset.feu = F.c;
+      vd.replaceChildren();
+      vd.append(el('div', 'v-word', WORD[F.c]));
+      const tx = el('div', 'v-txt'); tx.append(el('b', null, MSG[F.c]));
+      const bad = F.sig.filter((s) => s.c !== 'vert');
+      tx.append(el('span', null, coach && coach.raison ? coach.raison.charAt(0).toUpperCase() + coach.raison.slice(1) + '.' : bad.length ? bad.map((s) => SHORT[s.k] + ' ' + s.aff).join(', ') + '.' : 'Nuit du ' + fd(F.nuit.date, { day: 'numeric', month: 'long' }) + '.'));
+      vd.append(tx);
+      const ul = el('ul', 'sig');
+      F.sig.forEach((s) => { const li = el('li', s.c); li.append(el('i'), SHORT[s.k] + ' '); li.append(el('b', null, s.aff)); ul.append(li); });
+      vd.append(ul);
+    }
+    // séance
+    const box = $('#session'); box.replaceChildren();
+    if (ok('plan')) {
+      const p = R('plan').find((x) => x.date === t);
+      const meta = el('div', 's-meta');
+      if (p) { meta.append(pill(p.type), 'Séance du jour' + (Number(p.km) ? ', ' + frNum(p.km) + ' km' : '')); } else meta.append(pill('REPOS'), 'Séance du jour');
+      box.append(meta);
+      box.append(el('h2', 's-title', p ? p.titre : 'Repos'));
+      const mp = mainPace(p);
+      if (mp) { const pc = el('div', 's-pace'); pc.append(el('span', 'n', mp[0])); if (mp[1]) pc.append(el('span', 'u', mp[1])); pc.append(el('span', 'l', p.type === 'TEST' ? '' : 'allure cible')); box.append(pc); }
+      if (p) { const st = steps(p.detail); if (st.length > 1) { const ol = el('ol', 's-steps'); st.forEach((s) => ol.append(el('li', null, s))); box.append(ol); } else box.append(el('p', 's-one', st[0])); }
+      else box.append(el('p', 'empty', 'Lundi et samedi : pas de course. Dors, mange bien, 10 min de mobilité si tu veux.'));
+      const done = runsOn(t);
+      const ad = coach && coach.seance ? coach.seance : F && p ? adaptation(F.c, p.type) : null;
+      if (done.length) { const a = el('div', 's-adapt'); a.style.setProperty('--feu', 'var(--go)'); a.append(el('b', null, 'Séance faite'), done.map((x) => frNum(x.km, 2) + ' km en ' + x.duree + ', ' + paceOf(x) + ' /km, FC ' + x.fc_moy).join(' ; ')); box.append(a); }
+      else if (ad) { const a = el('div', 's-adapt'); a.append(el('b', null, 'Adaptation du coach'), ad); box.append(a); }
+    }
+    // mot du coach
+    const dl = $('#coach-dl'); dl.replaceChildren();
+    const item = (k, v) => { if (!v) return; const w = el('div'); w.append(el('dt', null, k), el('dd', null, v)); dl.append(w); };
+    if (coach) { item('Hier', coach.hier); item('Mon conseil', coach.conseil); }
+    else if (ok('activites', 'plan', 'sommeil')) {
+      const y = addDays(t, -1), r = runsOn(y), py = R('plan').find((x) => x.date === y);
+      item('Hier', r.length ? (py ? py.titre + ' : ' : '') + r.map((x) => frNum(x.km, 1) + ' km à ' + paceOf(x) + ' /km, FC moyenne ' + x.fc_moy).join(' ; ') + '.' : py && py.type !== 'REPOS' ? 'Pas de course enregistrée (prévu : ' + py.titre + '). On ne rattrape pas : on repart du plan.' : 'Repos.');
+      const nuits = byDate(R('sommeil')).slice(-3);
+      const late = nuits.filter((n) => { const h = Number(n.coucher.split(':')[0]); return h >= 0 && h < 12; }).length;
+      item('Mon conseil', late >= 2 ? 'Tu te couches après minuit depuis plusieurs nuits. Vise avant 23 h 30 : c’est le levier le plus simple pour ta récupération.' : 'Bois 500 ml d’eau dans l’heure qui suit ta séance et garde un coucher régulier.');
+    }
+    drawNight(F); drawDay(); drawRdv('#rdv');
+  }
+
+  function ring(score) {
+    const r = 40, c = 2 * Math.PI * r, f = Math.max(0, Math.min(1, score / 100));
+    const col = score >= 75 ? 'var(--go)' : score >= 60 ? 'var(--adj)' : 'var(--stop)';
+    return `<svg viewBox="0 0 92 92"><circle cx="46" cy="46" r="${r}" fill="none" stroke="color-mix(in srgb,currentColor 10%,transparent)" stroke-width="8"/><circle cx="46" cy="46" r="${r}" fill="none" stroke="${col}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${c * f} ${c}"/></svg>`;
+  }
+  function drawNight(F) {
+    const box = $('#night'); box.replaceChildren();
+    if (!ok('sommeil', 'vfc')) return;
+    const n = last(R('sommeil')), v = last(R('vfc'));
+    const h = el('div', 'sec-h'); h.append(el('h3', null, 'Ta nuit'), el('span', null, 'du ' + fd(addDays(n.date, -1), { day: 'numeric' }) + ' au ' + fd(n.date, { day: 'numeric', month: 'short' })));
+    box.append(h);
+    const m = el('div', 'n-main');
+    const rg = el('div', 'ring'); rg.innerHTML = ring(Number(n.score)); const vv = el('div', 'v'); const vb = el('div'); vb.append(el('b', null, n.score), el('small', null, n.qualite)); vv.append(vb); rg.append(vv);
+    const du = el('div', 'n-dur'); du.append(el('b', null, hmin(n.heures)), el('span', null, 'Couché à ' + n.coucher + ', levé à ' + n.lever));
+    m.append(rg, du); box.append(m);
+    const P = [['Profond', n.profond_min, '#3D5A99'], ['Paradoxal', n.paradoxal_min, '#8B7FE0'], ['Léger', n.leger_min, '#7CCAD5'], ['Éveil', n.eveil_min, '#E3B5A4']];
+    const tot = P.reduce((s, x) => s + Number(x[1]), 0) || 1;
+    const bar = el('div', 'phases'); const lg = el('div', 'ph-l');
+    P.forEach(([k, val, col]) => { if (Number(val) <= 0) return; const s = el('span'); s.style.flex = String(Number(val) / tot); s.style.background = col; bar.append(s); const l = el('span'); const i = el('i'); i.style.background = col; l.append(i, k + ' ' + hmin(Number(val) / 60)); lg.append(l); });
+    box.append(bar, lg);
+    const kv = el('dl', 'kv');
+    const cell = (k, val, u, sub) => { const d = el('div'); d.append(el('dt', null, k)); const dd = el('dd', null, val); if (u) dd.append(el('small', null, u)); d.append(dd); if (sub) d.append(el('span', 'sub', sub)); kv.append(d); };
+    cell('VFC', v.vfc_nuit, 'ms', 'moyenne 7 j : ' + (v.vfc_7j || '—'));
+    cell('FC repos', etat('fc_repos') || '—', 'bpm');
+    cell('Réveils', n.reveils, '', 'stress ' + n.stress_nuit);
+    box.append(kv);
+  }
+  function drawDay() {
+    const box = $('#tiles'); box.replaceChildren();
+    if (!ok('etat_du_jour', 'body_battery', 'pas')) return;
+    const bb = last(R('body_battery')), pas = byDate(R('pas')), py = pas.filter((x) => x.journee_complete === 'oui').slice(-1)[0];
+    const tile = (k, val, u, sub, pct) => { const d = el('div', 'tile'); d.append(el('dt', null, k)); const dd = el('dd', null, val); if (u) dd.append(el('small', null, u)); d.append(dd); if (sub) d.append(el('span', 'sub', sub)); if (pct != null) { const b = el('div', 'bar'); const s = el('span'); s.style.width = Math.min(100, pct) + '%'; b.append(s); d.append(b); } box.append(d); };
+    tile('Forme du jour', etat('readiness') || '—', '/100', etat('readiness_niveau'), Number(etat('readiness')));
+    tile('Body Battery', '+' + bb.recharge, '', 'rechargé cette nuit', Number(bb.recharge));
+    tile('Récup restante', frNum(etat('recup_h') || 0), 'h', 'selon ta montre');
+    tile('Pas hier', py ? Number(py.pas).toLocaleString('fr-FR') : '—', '', py ? py.kcal_actives + ' kcal actives' : '', py ? Number(py.pas) / 100 : null);
+    $('#day-date').textContent = 'statut ' + (etat('statut') || '').toLowerCase();
+  }
+  function rdvList() {
+    const t = today();
+    const all = R('plan').filter((p) => (p.type === 'TEST' || p.type === 'COURSE') && p.date >= t);
+    const semi = all.find((p) => p.date === RACE);
+    const out = all.filter((p) => p !== semi).slice(0, 3);
+    if (semi) out.push(semi);
+    return out;
+  }
+  function drawRdv(sel) {
+    const ol = $(sel); ol.replaceChildren();
+    if (!ok('plan')) return;
+    const t = today();
+    rdvList().forEach((p) => {
+      const li = el('li'); li.append(el('div', 'j', 'J‑' + nDays(t, p.date)));
+      const tt = el('div', 't'); tt.append(el('b', null, p.type === 'COURSE' && p.date === RACE ? 'Semi d’Antony' : p.titre.replace(' : objectif sous 35:00', '').replace(' demi-Cooper', '').replace(/ \(.*\)$/, '')), el('span', null, p.type === 'COURSE' && p.date === RACE ? 'Objectif 1:20' : p.type === 'COURSE' ? 'Trail, 17 km' : /10 km/.test(p.titre) ? 'Objectif sous 35:00' : 'On recale tes allures'));
+      li.append(tt, el('div', 'd', fd(p.date, { day: 'numeric', month: 'short' })));
+      ol.append(li);
+    });
+  }
+
+  /* ---------- SEMAINE ---------- */
+  function drawSemaine() {
+    if (!ok('plan', 'semaines', 'activites')) return;
+    const t = today(), mon = monday(t), sun = addDays(mon, 6);
+    const sem = R('semaines').find((w) => t >= w.debut && t <= w.fin);
+    const week = R('plan').filter((p) => p.date >= mon && p.date <= sun);
+    const kmPlan = week.reduce((s, p) => s + Number(p.km), 0);
+    const kmDone = R('activites').filter((a) => a.date >= mon && a.date <= sun && ['Course', 'Tapis', 'Trail'].includes(a.sport)).reduce((s, a) => s + Number(a.km), 0);
+    const hd = $('#wk-head'); hd.replaceChildren();
+    const l = el('div'); l.append(el('h2', null, sem ? 'Semaine ' + sem.semaine + ' sur 23' : 'Cette semaine'), el('p', null, sem ? sem.bloc + ' : ' + sem.theme.charAt(0).toLowerCase() + sem.theme.slice(1) + '.' : ''));
+    const r = el('div', 'wk-km'); const b = el('div'); b.append(el('b', null, frNum(kmDone)), el('span', null, ' / ' + frNum(kmPlan) + ' km')); r.append(b);
+    const bar = el('div', 'bar'); const s = el('span'); s.style.width = Math.min(100, kmPlan ? (kmDone / kmPlan) * 100 : 0) + '%'; bar.append(s); r.append(bar);
+    hd.append(l, r);
+    const ol = $('#days'); ol.replaceChildren();
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(mon, i), p = week.find((x) => x.date === d), runs = runsOn(d);
+      const li = el('li', (d === t ? 'today' : d < t ? 'past' : '') + (!p && !runs.length ? ' repos' : ''));
+      const dd = el('div', 'dd'); dd.append(el('b', null, fd(d, { day: 'numeric' })), el('span', null, fd(d, { weekday: 'short' }).replace('.', ''))); li.append(dd);
+      const bd = el('div', 'bd');
+      if (p) { bd.append(pill(p.type), el('b', null, p.titre), el('p', null, p.detail)); }
+      else bd.append(el('b', null, 'Repos'));
+      if (runs.length) bd.append(el('span', 'real', 'Fait : ' + runs.map((x) => frNum(x.km, 1) + ' km à ' + paceOf(x) + ' /km').join(' ; ')));
+      li.append(bd);
+      let st = null;
+      if (runs.length) st = el('span', 'st fait', 'Fait');
+      else if (d === t) st = el('span', 'st auj', 'Aujourd’hui');
+      else if (p && d < t && p.type !== 'REPOS') st = el('span', 'st rate', 'Pas faite');
+      else if (p && d > t) st = el('span', 'st', 'À venir');
+      if (st) li.append(st);
+      ol.append(li);
+    }
+    const nmon = addDays(mon, 7), nw = R('plan').filter((p) => p.date >= nmon && p.date <= addDays(nmon, 6));
+    const nl = $('#nextwk'); nl.replaceChildren();
+    nw.forEach((p) => { const li = el('li'); const a = el('div'); a.append(el('b', null, fd(p.date, { weekday: 'short' }).replace('.', '') + ' '), p.titre); const mp = mainPace(p); li.append(a, el('span', null, mp ? mp[0] + (mp[1] ? ' ' + mp[1] : '') : '')); nl.append(li); });
+    $('#nw-km').textContent = frNum(nw.reduce((s2, p) => s2 + Number(p.km), 0)) + ' km';
+    drawRdv('#rdv2');
+  }
+
+  /* ---------- OBJECTIFS ---------- */
+  function spark(vals, col) {
+    const v = vals.filter((x) => !isNaN(x)); if (v.length < 2) return '';
+    const mn = Math.min(...v), mx = Math.max(...v), W = 200, H = 38, pad = 3;
+    const pts = v.map((x, i) => [(i / (v.length - 1)) * W, H - pad - ((x - mn) / ((mx - mn) || 1)) * (H - pad * 2)]);
+    const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('');
+    const lp = pts[pts.length - 1];
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${col}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${lp[0]}" cy="${lp[1]}" r="3" fill="${col}"/></svg>`;
+  }
+  function drawObjectifs() {
+    const g = $('#goals'); g.replaceChildren();
+    if (ok('predictions', 'records', 'plan')) {
+      const pr = (d) => (R('predictions').find((x) => x.distance === d) || {}).temps || '—';
+      const rec = (e) => (R('records').find((x) => x.epreuve === e) || {}).temps || '—';
+      const t = today();
+      const tests = R('plan').filter((p) => p.type === 'TEST' && /10 km/.test(p.titre) && p.date >= t);
+      const mk = (main, cap, big, pace, rows, note) => {
+        const d = el('div', 'goal' + (main ? ' main' : '')); d.append(el('div', 'cap', cap), el('div', 'big', big), el('div', 'pace', pace));
+        const dl = el('dl'); rows.forEach(([k, v]) => { const w = el('div'); w.append(el('dt', null, k), el('dd', null, v)); dl.append(w); }); d.append(dl);
+        if (note) d.append(el('p', 'n', note)); g.append(d);
+      };
+      mk(true, 'Semi d’Antony, 28 mars', '1:20:00', '3:47 /km de moyenne', [['Plancher', '1:25'], ['Record', rec('Semi-marathon')], ['Garmin prédit', pr('Semi')]],
+        'Ton allure du jour J sera fixée par le test 10 km du 21 février : 34:45 ou mieux, on part sur 1:20.');
+      mk(false, 'Sur 10 km, cette saison', 'Sous 35:00', '3:30 /km de moyenne', [['Record', rec('10 km')], ['Prochain test', tests[0] ? fd(tests[0].date, { day: 'numeric', month: 'short' }) : '—'], ['Garmin prédit', pr('10 km')]],
+        'Les prédictions Garmin restent prudentes tant que tu n’as pas couru vite récemment : c’est le test qui compte.');
+    }
+    const pl = $('#paces'); pl.replaceChildren();
+    if (ok('allures')) R('allures').slice().sort((a, b) => a.ordre - b.ordre).forEach((a) => {
+      const li = el('li'); const i = el('i'); i.style.setProperty('--tc', ZCOL[a.zone] || '#9AA8AA'); li.append(i);
+      const m = el('div'); m.append(el('b', null, a.nom), el('span', 'u', a.usage)); li.append(m, el('div', 'p', a.allure.replace(' /km', '')));
+      pl.append(li);
+    });
+    const tr = $('#trends'); tr.replaceChildren();
+    const t28 = addDays(today(), -28);
+    const T = (k, val, u, sub, rows, f, col) => { const d = el('div', 'trend'); d.append(el('dt', null, k)); const dd = el('dd', null, val); if (u) dd.append(el('small', null, u)); d.append(dd); const s = el('div'); s.innerHTML = spark(rows.map(f), col); d.append(s); if (sub) d.append(el('span', 'sub', sub)); tr.append(d); };
+    if (ok('sommeil')) { const r = byDate(R('sommeil')).filter((x) => x.date >= t28); const m = Math.round(r.reduce((s, x) => s + Number(x.score), 0) / r.length); T('Sommeil', m, 'de moyenne', '', r, (x) => Number(x.score), '#0E8F9C'); }
+    if (ok('vfc')) { const r = byDate(R('vfc')).filter((x) => x.date >= t28); T('VFC', last(R('vfc')).vfc_7j || '—', 'ms sur 7 j', '', r, (x) => Number(x.vfc_nuit), '#4E6CA8'); }
+    if (ok('vo2max')) { const r = byDate(R('vo2max')); T('VO2max', frNum(last(r).vo2max), '', '', r.slice(-12), (x) => Number(x.vo2max), '#8B7FE0'); }
+    if (ok('charge')) { const r = byDate(R('charge')).filter((x) => x.date >= t28); const l2 = last(R('charge')); T('Charge', frNum(l2.ratio), 'ratio ' + (l2.zone_ratio || '').toLowerCase(), '', r, (x) => Number(x.aigue), '#E0A23A'); }
   }
 
   /* ---------- onglets ---------- */
-  const TABS = ['aujourdhui', 'plan', 'sante', 'seances', 'reperes'];
-  let tab = TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'aujourdhui';
-  const show = (t, link) => {
-    tab = t;
-    TABS.forEach((k) => { $('#' + k).hidden = k !== t; $('#tab-' + k).setAttribute('aria-selected', String(k === t)); });
-    if (link) dash.setLink(t);
+  const PAGES = ['jour', 'semaine', 'objectifs'];
+  let page = PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'jour';
+  const show = (p, link) => {
+    page = p;
+    PAGES.forEach((k) => { $('#p-' + k).hidden = k !== p; $('#t-' + k).setAttribute('aria-selected', String(k === p)); });
+    if (link && dash.setLink) dash.setLink(p);
     render();
   };
-  document.querySelectorAll('.ax-nav button').forEach((b) => b.addEventListener('click', () => show(b.dataset.tab, true)));
-  document.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => show(b.dataset.go, true)));
-
-  /* ---------- commun ---------- */
-  function common() {
-    const t = today();
-    fillMarks();
-    if (ready('feu_du_jour')) {
-      const g = R('feu_du_jour').find((r) => r.signal === 'global');
-      $('#sync').textContent = 'Dernière nuit lue : ' + fd(g.date, { day: 'numeric', month: 'long' }) + '. Mise à jour chaque matin à 9 h 20.';
-    }
-    const sem = R('semaines').find((w) => t >= w.debut && t <= w.fin);
-    const hw = $('#hero-week');
-    if (sem) {
-      const inner = el('span'); inner.append('Semaine ', mark(el('span', null, sem.semaine), 'semaines', 'semaine', 'semaine=' + sem.semaine), ' sur 23, bloc ' + sem.bloc.toLowerCase());
-      hw.replaceChildren(inner);
-    }
-    if (ready('sommeil')) { const n = byDate(R('sommeil')).pop(); const e = $('#t-som-score'); e.setAttribute('data-where', 'date=' + n.date); e.textContent = n.score; }
-    if (ready('vfc')) { const n = byDate(R('vfc')).pop(); const e = $('#t-vfc-n'); e.setAttribute('data-where', 'date=' + n.date); e.textContent = n.vfc_nuit; }
-    if (ready('charge')) { const n = byDate(R('charge')).pop(); const e = $('#t-charge-z'); e.setAttribute('data-where', 'date=' + n.date); e.textContent = n.zone_ratio; }
-  }
-
-  /* ---------- AUJOURD'HUI ---------- */
-  function adaptation(couleur, type) {
-    if (!type || type === 'REPOS') return 'Jour de repos : dors, hydrate-toi, 10 min de mobilité si tu veux.';
-    if (couleur === 'rouge') return 'Repos ou 30 min à 5:50–6:30 /km. La séance prévue glisse de 24 à 48 h.';
-    if (couleur === 'orange') {
-      if (KEY.includes(type)) return 'Version allégée : un tiers de répétitions en moins, côté lent de la fourchette d’allure. Si les jambes ne répondent pas après l’échauffement, passe à 40 min à 5:20–5:45 /km.';
-      if (type === 'REC') return 'Inchangée : c’est déjà de la récupération.';
-      return 'Raccourcis de 20 % et cours à 5:25–5:50 /km.';
-    }
-    return 'Feu vert : séance telle que prévue.';
-  }
-  function drawToday() {
-    const t = today(), mon = monday(t);
-    // en-tête : le cap de la semaine
-    const take = $('#takeaway');
-    if (ready('semaines', 'volume_hebdo')) {
-      take.classList.remove('dash-skeleton');
-      const sem = R('semaines').find((w) => t >= w.debut && t <= w.fin);
-      const v = R('volume_hebdo').find((x) => x.semaine === mon);
-      const parts = ['Il te reste ', el('span', 'k', Math.max(0, nDays(t, RACE)) + ' jours'), ' avant le départ.'];
-      if (sem && v && v.prevu != null) parts.push(' Cette semaine, ', mark(el('span', 'k', v.prevu), 'volume_hebdo', 'prevu', 'semaine=' + mon), ' km au programme avec un cap : « ', mark(el('span', null, sem.theme), 'semaines', 'theme', 'semaine=' + sem.semaine), ' ».');
-      take.replaceChildren(...parts);
-    } else if (broken('semaines', 'volume_hebdo')) { take.classList.remove('dash-skeleton'); take.textContent = 'Le plan n’a pas pu être chargé.'; }
-    if (ready('semaines', 'plan')) drawTrack($('#track'));
-    // feu du jour
-    let couleur = null;
-    if (ready('feu_du_jour')) {
-      const feu = R('feu_du_jour'), glob = feu.find((r) => r.signal === 'global');
-      couleur = glob.couleur;
-      $('#feu').className = 'dec-l c-' + couleur;
-      $('#feu-verdict').textContent = glob.affichage;
-      $('#feu-msg').textContent = MSG[couleur];
-      $('#feu-cpt').textContent = glob.seuil;
-      $('#feu-date').textContent = 'nuit du ' + fShort(addDays(glob.date, -1)) + ' au ' + fShort(glob.date);
-      $('#feu-stale').textContent = glob.date !== addDays(t, 0) && glob.date !== t ? 'Ces données datent de la nuit du ' + fShort(glob.date) + ' : synchronise ta montre.' : '';
-      $('#feu-list').replaceChildren(...feu.filter((r) => r.signal !== 'global').map((r) => {
-        const li = el('li', 'c-' + r.couleur); const ic = el('span', 'ic'); ic.append(svgEl(ICON[r.couleur]));
-        li.append(ic, el('span', 'lb', r.libelle), mark(el('span', 'v', r.affichage), 'feu_du_jour', 'affichage', 'signal=' + r.signal));
-        return li;
-      }));
-    } else if (broken('feu_du_jour')) $('#feu-list').replaceChildren(el('li', 'fail', 'Les données n’ont pas pu être chargées'));
-    // séance du jour
-    if (ready('plan', 'feu_du_jour')) {
-      const plan = R('plan'), s = plan.find((p) => p.date === t);
-      $('#sj-date').textContent = fLong(t);
-      $('#seance-du-jour').className = 'dec-r sj c-' + couleur;
-      const body = $('#sj-body'); body.replaceChildren();
-      const top = el('div'); top.style.marginTop = '14px';
-      if (s) {
-        top.append(pill(s.type)); body.append(top, mark(el('div', 'titre', s.titre), 'plan', 'titre', 'id=' + s.id), mark(el('p', 'det', s.detail), 'plan', 'detail', 'id=' + s.id));
-        if (Number(s.km) > 0) { const ks = el('div', 'kms'); const k = el('span', 'kmchip'); k.append(mark(el('b', null, s.km), 'plan', 'km', 'id=' + s.id), 'km'); ks.append(k); body.append(ks); }
-      } else {
-        top.append(pill('REPOS')); body.append(top, el('div', 'titre', 'Repos programmé'), el('p', 'det', 'Le lundi et le samedi sont tes jours sans course.'));
-      }
-      const ad = el('div', 'adapt'); ad.append(el('b', null, 'Adaptation du coach'), adaptation(couleur, s ? s.type : null)); body.append(ad);
-      const nx = plan.filter((p) => p.date > t && KEY.includes(p.type)).sort((a2, b2) => (a2.date < b2.date ? -1 : 1))[0];
-      if (nx) { const n = el('div', 'next'); n.append(el('span', 'cap', 'Prochaine séance clé, ' + fLong(nx.date)), pill(nx.type), mark(el('span', null, nx.titre), 'plan', 'titre', 'id=' + nx.id)); body.append(n); }
-    }
-    // semaine
-    if (ready('volume_hebdo')) {
-      const v = R('volume_hebdo').find((x) => x.semaine === mon), wp = $('#wk-prog');
-      if (v && v.prevu != null) {
-        const real = v.realise == null ? 0 : Number(v.realise);
-        const txt = el('span');
-        if (v.realise == null) txt.append(el('b', null, '0'));
-        else txt.append(mark(el('b', null, v.realise), 'volume_hebdo', 'realise', 'semaine=' + mon));
-        txt.append(' km courus sur ', mark(el('span', null, v.prevu), 'volume_hebdo', 'prevu', 'semaine=' + mon), ' prévus');
-        const bar = el('div', 'bar'); const fillb = el('i'); fillb.style.width = Math.min(100, (real / Number(v.prevu)) * 100) + '%'; bar.append(fillb);
-        wp.replaceChildren(txt, bar);
-      }
-    }
-    if (ready('plan', 'suivi_plan', 'semaines')) {
-      const plan = R('plan'), suivi = R('suivi_plan');
-      const sem = R('semaines').find((w) => t >= w.debut && t <= w.fin);
-      const note = $('#cette-semaine-note');
-      if (sem) note.replaceChildren('Semaine ' + sem.semaine + ', bloc ' + sem.bloc.toLowerCase());
-      const strip = $('#strip'); strip.replaceChildren();
-      for (let i = 0; i < 7; i++) {
-        const d = addDays(mon, i), s = plan.find((p) => p.date === d);
-        const card = el('div', 'day' + (d === t ? ' today' : '') + (s && s.type !== 'REPOS' ? '' : ' off'));
-        if (s && s.type !== 'REPOS') card.style.setProperty('--tc', (TYPE[s.type] || [0, MUTED])[1]);
-        const dn = el('div', 'dn'); dn.append(el('b', null, fd(d, { weekday: 'short' }).replace('.', '')), fShort(d)); card.append(dn);
-        if (s) {
-          card.append(pill(s.type), mark(el('div', 't', s.titre), 'plan', 'titre', 'id=' + s.id));
-          const f = el('div', 'f');
-          if (Number(s.km) > 0) { const k = el('span'); k.append(mark(el('span', null, s.km), 'plan', 'km', 'id=' + s.id), ' km'); f.append(k); } else f.append(el('span'));
-          const sv = suivi.find((x) => x.id === s.id);
-          if (sv) f.append(mark(el('span', 'stat ' + (STAT[sv.statut] || ''), sv.statut), 'suivi_plan', 'statut', 'id=' + s.id));
-          card.append(f);
-        } else card.append(el('div', 't', 'Repos'));
-        strip.append(card);
-      }
-    }
-    if (ready('sommeil')) spark($('#sp-som'), byDate(R('sommeil')).slice(-14).map((r) => Number(r.score)), ACC);
-    if (ready('vfc')) spark($('#sp-vfc'), byDate(R('vfc')).slice(-14).map((r) => Number(r.vfc_nuit)), NAVY);
-  }
-
-  /* ---------- PLAN ---------- */
-  const BCOL = { Transition: MUTED, Fondations: SKY, 'Développement': NAVY, 'Spécifique semi': VIOLET, 'Affûtage': ACC };
-  let blocF = null;
-  const openWeeks = new Set();
-  let openInit = false;
-  function drawPlan() {
-    const t = today();
-    if (ready('semaines')) {
-      const info = ready('plan') ? drawTrack($('#track-plan')) : null;
-      if (info) $('#pl-pos').textContent = info.pct + ' % du chemin parcouru';
-      const fl = $('#bloc-filters');
-      fl.replaceChildren(...[null, ...BLOCS].map((b) => { const bt = el('button', null, b || 'Tout'); bt.setAttribute('aria-pressed', String(blocF === b)); bt.addEventListener('click', () => { blocF = b; drawPlan(); }); return bt; }));
-    }
-    const vb = $('#ch-volume');
-    if (ready('volume_hebdo')) {
-      const rows = R('volume_hebdo');
-      legend($('#lg-vol'), [['Couru', ACC], ['Prévu', ACC, 'gh']]);
-      chart(vb, { rows, key: (r) => r.semaine, xFmt: (r) => fShort(r.semaine), label: 'Volume hebdomadaire', height: 250, xLabelW: 64, padding: 0.2, nowKey: monday(t),
-        bars: [{ get: (r) => (r.prevu == null ? null : Number(r.prevu)), color: ACC, ghost: true }, { get: (r) => (r.realise == null ? null : Number(r.realise)), color: ACC, inset: 0.16 }],
-        yFmt: (v) => v + ' km',
-        tip: (r) => ({ title: 'Semaine du ' + fShort(r.semaine), lines: [{ color: ACC, label: 'Couru', value: r.realise == null ? '—' : nf1(r.realise) + ' km' }, { label: 'Prévu', value: r.prevu == null ? '—' : nf1(r.prevu) + ' km' }] }) });
-    } else if (broken('volume_hebdo')) fail(vb);
-    if (ready('semaines', 'plan', 'suivi_plan', 'volume_hebdo')) {
-      const plan = R('plan'), suivi = R('suivi_plan'), vol = R('volume_hebdo');
-      if (!openInit) {
-        openInit = true;
-        const c = R('semaines').find((x) => t >= x.debut && t <= x.fin);
-        if (c) openWeeks.add(String(c.semaine)); else openWeeks.add('0');
-      }
-      const box = $('#weeks'); box.replaceChildren();
-      R('semaines').filter((w) => !blocF || w.bloc === blocF).forEach((w) => {
-        const cur = t >= w.debut && t <= w.fin;
-        const det = el('details', 'wk' + (cur ? ' cur' : ''));
-        det.id = 'semaine-' + w.semaine;
-        det.open = openWeeks.has(String(w.semaine));
-        det.addEventListener('toggle', () => { if (det.open) openWeeks.add(String(w.semaine)); else openWeeks.delete(String(w.semaine)); });
-        const sm = el('summary');
-        const wn = el('span', 'wn'); wn.append('S', mark(el('span', null, w.semaine), 'semaines', 'semaine', 'semaine=' + w.semaine));
-        const wt = el('span', 'wt'); const pc = el('span', 'pill'); pc.style.setProperty('--tc', BCOL[w.bloc]); pc.append(el('i'), w.bloc);
-        wt.append(pc, mark(el('span', null, w.theme), 'semaines', 'theme', 'semaine=' + w.semaine));
-        const v = vol.find((x) => x.semaine === w.debut);
-        const k = el('span', 'wkm'); if (v && v.prevu != null) k.append(mark(el('span', null, v.prevu), 'volume_hebdo', 'prevu', 'semaine=' + w.debut), el('small', null, 'km'));
-        const chev = svgEl('<svg class="i chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>');
-        sm.append(wn, el('span', 'wd', fShort(w.debut) + ' au ' + fShort(w.fin)), wt, k, chev);
-        det.append(sm);
-        const ul = el('ul', 'sess');
-        plan.filter((p) => Number(p.semaine) === Number(w.semaine)).forEach((p) => {
-          const li = el('li', p.date === t ? 'today' : null);
-          li.append(el('div', 'sd', fDay(p.date)));
-          const mid = el('div'); const tl = el('div'); tl.style.display = 'flex'; tl.style.gap = '8px'; tl.style.alignItems = 'center'; tl.style.flexWrap = 'wrap';
-          tl.append(pill(p.type), mark(el('span', 'st', p.titre), 'plan', 'titre', 'id=' + p.id));
-          mid.append(tl, mark(el('div', 'sx', p.detail), 'plan', 'detail', 'id=' + p.id)); li.append(mid);
-          const rt = el('div', 'sr');
-          if (Number(p.km) > 0) { const kk = el('span'); kk.append(mark(el('span', 'kmv', p.km), 'plan', 'km', 'id=' + p.id), ' km'); rt.append(kk); }
-          const sv = suivi.find((x) => x.id === p.id);
-          if (sv) rt.append(mark(el('span', 'stat ' + (STAT[sv.statut] || ''), sv.statut), 'suivi_plan', 'statut', 'id=' + p.id));
-          if (sv && sv.km_reel != null) { const kr = el('span'); kr.append(mark(el('span', null, sv.km_reel), 'suivi_plan', 'km_reel', 'id=' + p.id), ' km courus'); rt.append(kr); }
-          li.append(rt); ul.append(li);
-        });
-        det.append(ul); box.append(det);
-      });
-    }
-  }
-
-  /* ---------- SANTÉ ---------- */
-  function drawHealth() {
-    if (ready('moyennes_sommeil')) {
-      $('#tab-moy tbody').replaceChildren(...R('moyennes_sommeil').map((r) => { const tr = el('tr'); tr.dataset.key = r.periode; [['periode'], ['score', 'num'], ['duree', 'num'], ['profond', 'num hn'], ['vfc', 'num'], ['coucher', 'num']].forEach(([k, c]) => tr.append(el('td', c || null, r[k]))); return tr; }));
-    }
-    const cols = { deep: NAVY, rem: VIOLET, light: SKY };
-    if (ready('sommeil', 'regles')) {
-      const rows = byDate(R('sommeil'));
-      legend($('#lg-duree'), [['Profond', cols.deep], ['Paradoxal', cols.rem], ['Léger', cols.light]]);
-      chart($('#ch-duree'), { rows, key: (r) => r.date, xFmt: (r) => fShort(r.date), label: 'Durée de sommeil', stack: true, padding: 0.22,
-        bars: [{ get: (r) => r.profond_min / 60, color: cols.deep }, { get: (r) => r.paradoxal_min / 60, color: cols.rem }, { get: (r) => r.leger_min / 60, color: cols.light }],
-        refs: [{ y: 7, label: '7 h' }], yFmt: (v) => v + ' h',
-        tip: (r) => ({ title: fDay(r.date) + ', score ' + r.score, lines: [{ label: 'Total', value: hmin(r.heures) }, { color: cols.deep, label: 'Profond', value: r.profond_min + ' min' }, { color: cols.rem, label: 'Paradoxal', value: r.paradoxal_min + ' min' }, { color: cols.light, label: 'Léger', value: r.leger_min + ' min' }, { label: 'Coucher, lever', value: r.coucher + ', ' + r.lever }] }) });
-      const rg = R('regles').find((x) => x.signal === 'sommeil_score');
-      chart($('#ch-score'), { rows, key: (r) => r.date, xFmt: (r) => fShort(r.date), label: 'Score de sommeil', y: [0, 100], tickValues: [0, 25, 50, 75, 100],
-        lines: [{ get: (r) => Number(r.score), color: ACC, area: true, dots: true, r: 3.4, dotColor: (r) => (Number(r.score) >= Number(rg.vert_des) ? ACC : Number(r.score) >= Number(rg.orange_des) ? WARN : STOP) }],
-        refs: [{ y: Number(rg.vert_des), label: String(rg.vert_des) }, { y: Number(rg.orange_des), label: String(rg.orange_des) }],
-        tip: (r) => ({ title: fDay(r.date), lines: [{ color: ACC, label: 'Score', value: r.score + ', ' + r.qualite.toLowerCase() }, { label: 'Stress nocturne', value: r.stress_nuit }] }) });
-      const hb = (r) => { const [h, m] = r.coucher.split(':').map(Number); const v = h + m / 60; return v < 18 ? v + 24 : v; };
-      chart($('#ch-coucher'), { rows, key: (r) => r.date, xFmt: (r) => fShort(r.date), label: 'Heure de coucher', y: [21, 30], tickValues: [21, 23, 25, 27, 29],
-        yFmt: (v) => fmtTime(v), lines: [{ get: hb, color: ACC, dots: true, noLine: true, r: 4.2, dotColor: (r) => (hb(r) > 25 ? AMBER : ACC) }],
-        refs: [{ y: 23.5, label: '23:30' }],
-        tip: (r) => ({ title: fDay(r.date), lines: [{ color: ACC, label: 'Coucher', value: r.coucher }, { label: 'Lever', value: r.lever }, { label: 'Score', value: r.score }] }) });
-    } else if (broken('sommeil', 'regles')) ['#ch-duree', '#ch-score', '#ch-coucher'].forEach((s) => fail($(s)));
-    if (ready('vfc', 'regles')) {
-      const rows = byDate(R('vfc')), rg = R('regles').find((x) => x.signal === 'vfc_nuit');
-      legend($('#lg-vfc'), [['Chaque nuit', NAVY], ['Moyenne 7 jours', ACC, 'ln']]);
-      chart($('#ch-vfc'), { rows, key: (r) => r.date, xFmt: (r) => fShort(r.date), label: 'VFC', zero: false, ticks: 4,
-        lines: [{ get: (r) => (r.vfc_7j === '' ? null : Number(r.vfc_7j)), color: ACC, width: 2.4 }, { get: (r) => Number(r.vfc_nuit), color: NAVY, dots: true, noLine: true, r: 3.6, dotColor: (r) => (Number(r.vfc_nuit) < Number(rg.orange_des) ? STOP : NAVY) }],
-        refs: [{ y: Number(rg.vert_des), label: rg.vert_des + ' ms' }, { y: Number(rg.orange_des), label: rg.orange_des + ' ms' }], yFmt: (v) => v,
-        tip: (r) => ({ title: fDay(r.date) + ', ' + r.statut.toLowerCase(), lines: [{ color: NAVY, label: 'Nuit', value: r.vfc_nuit + ' ms' }, { color: ACC, label: 'Moyenne 7 j', value: r.vfc_7j === '' ? '—' : r.vfc_7j + ' ms' }] }) });
-    } else if (broken('vfc', 'regles')) fail($('#ch-vfc'));
-    if (ready('body_battery', 'regles')) {
-      const rows = byDate(R('body_battery')), rg = R('regles').find((x) => x.signal === 'recharge');
-      chart($('#ch-bb'), { rows, key: (r) => r.date, xFmt: (r) => fShort(r.date), label: 'Recharge Body Battery', height: 200, y: [0, 100], tickValues: [0, 50, 100],
-        bars: [{ get: (r) => Number(r.recharge), color: SKY, colorOf: (r) => (Number(r.recharge) < Number(rg.orange_des) ? STOP : SKY) }],
-        refs: [{ y: Number(rg.orange_des), label: String(rg.orange_des) }],
-        tip: (r) => ({ title: fDay(r.date), lines: [{ color: SKY, label: 'Recharge', value: '+' + r.recharge }, { label: 'Dépense', value: '−' + r.depense }] }) });
-    } else if (broken('body_battery', 'regles')) fail($('#ch-bb'));
-    if (ready('pas')) {
-      const rows = byDate(R('pas'));
-      chart($('#ch-pas'), { rows, key: (r) => r.date, xFmt: (r) => fShort(r.date), label: 'Pas par jour', height: 200,
-        bars: [{ get: (r) => Number(r.pas), color: ACC, colorOf: (r) => (r.journee_complete === 'non' ? MUTED : ACC) }],
-        refs: [{ y: 10000, label: '10 000' }], yFmt: (v) => (v >= 1000 ? v / 1000 + ' k' : v),
-        tip: (r) => ({ title: fDay(r.date) + (r.journee_complete === 'non' ? ' (en cours)' : ''), lines: [{ color: ACC, label: 'Pas', value: nf0(r.pas) }, { label: 'Kcal actives', value: r.kcal_actives }] }) });
-    } else if (broken('pas')) fail($('#ch-pas'));
-  }
-
-  /* ---------- SÉANCES ---------- */
-  let sortK = 'date', sortDir = -1;
-  function drawSessions() {
-    const eb = $('#ch-equilibre');
-    if (ready('equilibre_charge')) {
-      eb.classList.remove('dash-skeleton'); eb.replaceChildren();
-      const rows = R('equilibre_charge'), W = Math.max(260, eb.clientWidth), rowH = 60, H = rows.length * rowH;
-      const mx = d3.max(rows, (r) => Math.max(Number(r.charge), Number(r.cible_max))) * 1.1;
-      const x = d3.scaleLinear([0, mx], [0, W - 6]);
-      const svg = d3.select(eb).append('svg').attr('class', 'ax-svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
-      rows.forEach((r, i) => {
-        const y0 = i * rowH + 2, col = r.statut === 'Dans la cible' ? 'var(--ax-go)' : r.statut === 'Sous la cible' ? WARN : STOP;
-        svg.append('text').attr('x', 0).attr('y', y0 + 13).style('fill', 'var(--color-fg)').style('font-size', '13.5px').style('font-weight', 600).text(r.categorie);
-        svg.append('text').attr('x', W - 4).attr('y', y0 + 13).attr('text-anchor', 'end').style('fill', col).style('font-size', '12.5px').style('font-weight', 600).text(r.statut);
-        svg.append('rect').attr('x', x(0)).attr('width', x(mx) - x(0)).attr('y', y0 + 24).attr('height', 10).attr('rx', 5).style('fill', 'var(--ax-line)');
-        svg.append('rect').attr('x', x(Number(r.cible_min))).attr('width', x(Number(r.cible_max)) - x(Number(r.cible_min))).attr('y', y0 + 24).attr('height', 10).attr('rx', 5).style('fill', 'color-mix(in srgb, var(--color-fg) 18%, transparent)');
-        svg.append('circle').attr('cx', x(Number(r.charge))).attr('cy', y0 + 29).attr('r', 7.5).style('fill', col).style('stroke', 'var(--ax-surface)').style('stroke-width', 3);
-        svg.append('text').attr('class', 'tick').attr('x', Math.min(W - 4, x(Number(r.charge)))).attr('y', y0 + 52).attr('text-anchor', x(Number(r.charge)) > W - 60 ? 'end' : 'middle').text(nf0(r.charge));
-      });
-    } else if (broken('equilibre_charge')) fail(eb);
-    if (ready('charge')) {
-      const rows = byDate(R('charge'));
-      legend($('#lg-charge'), [['Aiguë (7 j)', ACC, 'ln'], ['Chronique', NAVY, 'ln']]);
-      chart($('#ch-charge'), { rows, key: (r) => r.date, xFmt: (r) => fShort(r.date), label: 'Charge',
-        lines: [{ get: (r) => Number(r.aigue), color: ACC, area: true }, { get: (r) => Number(r.chronique), color: NAVY, width: 2 }],
-        tip: (r) => ({ title: fDay(r.date) + ', ratio ' + r.ratio, lines: [{ color: ACC, label: 'Aiguë', value: r.aigue }, { color: NAVY, label: 'Chronique', value: r.chronique }, { label: 'Zone', value: r.zone_ratio.toLowerCase() }] }) });
-    } else if (broken('charge')) fail($('#ch-charge'));
-    if (ready('vo2max')) {
-      const rows = byDate(R('vo2max'));
-      const vs = rows.map((r) => Number(r.vo2max));
-      chart($('#ch-vo2'), { rows, key: (r) => r.date, xFmt: (r) => fShort(r.date), label: 'VO2max', height: 200, y: [Math.floor(d3.min(vs)) - 1, Math.ceil(d3.max(vs)) + 1], ticks: 4, padding: 0.4,
-        lines: [{ get: (r) => Number(r.vo2max), color: ACC, area: true, dots: true, r: 3.6 }],
-        tip: (r) => ({ title: fDay(r.date), lines: [{ color: ACC, label: 'VO2max', value: r.vo2max }] }) });
-    } else if (broken('vo2max')) fail($('#ch-vo2'));
-    drawHistory();
-  }
-  function drawHistory() {
-    if (!ready('activites', 'allures_seances')) return;
-    const al = new Map(R('allures_seances').map((r) => [r.id, r.allure]));
-    const q = $('#h-q').value.trim().toLowerCase(), sp = $('#h-sport').value;
-    let rows = R('activites').filter((r) => (sp === 'tout' || r.sport === 'Course' || r.sport === 'Tapis') && (!q || (r.nom + ' ' + r.sport + ' ' + r.date_fr).toLowerCase().includes(q)));
-    const num = ['km', 'duree_s', 'fc_moy', 'dplus'];
-    const val = (r) => (sortK === 'allure' ? al.get(r.id) : num.includes(sortK) ? (r[sortK] === '' ? -1 : Number(r[sortK])) : r[sortK]);
-    rows = rows.slice().sort((a, b) => { const x = val(a), y = val(b); return (x < y ? -1 : x > y ? 1 : 0) * sortDir; });
-    $('#h-n').textContent = rows.length + ' activités, ' + nf1(d3.sum(rows, (r) => Number(r.km))).replace('.', ',') + ' km';
-    $('#h-table tbody').replaceChildren(...rows.map((r) => {
-      const tr = el('tr', r.course === 'oui' ? 'race' : null); tr.dataset.key = r.id;
-      tr.append(el('td', null, r.date_fr), el('td', null, r.nom), el('td', 'hn', r.sport), el('td', 'num', r.km), el('td', 'num', r.duree), el('td', 'num', al.get(r.id) || '—'), el('td', 'num hn', r.fc_moy), el('td', 'num hn', r.dplus));
-      return tr;
-    }));
-    document.querySelectorAll('#h-table th').forEach((th) => th.setAttribute('aria-sort', th.dataset.k === sortK ? (sortDir > 0 ? 'ascending' : 'descending') : 'none'));
-  }
-  document.querySelectorAll('#h-table th').forEach((th) => th.querySelector('button').addEventListener('click', () => { const k = th.dataset.k; if (sortK === k) sortDir = -sortDir; else { sortK = k; sortDir = ['date', 'km', 'duree_s', 'fc_moy', 'dplus'].includes(k) ? -1 : 1; } drawHistory(); }));
-  $('#h-q').addEventListener('input', drawHistory);
-  $('#h-sport').addEventListener('change', drawHistory);
-
-  /* ---------- REPÈRES ---------- */
-  const ZCOL = { REC: MUTED, EF: SKY, SL: ACC, AM: NAVY, AS21: VIOLET, SEUIL: AMBER, A10: '#C2504B', 'VMA-L': CORAL, 'VMA-C': '#C94F5B', LD: 'var(--color-fg)' };
-  function drawRefs() {
-    if (ready('allures')) {
-      $('#tab-allures tbody').replaceChildren(...R('allures').slice().sort((a, b) => a.ordre - b.ordre).map((r) => {
-        const tr = el('tr'); tr.dataset.key = r.zone;
-        const z = el('td'); const d = el('span', 'zd'); d.style.setProperty('--tc', ZCOL[r.zone] || MUTED); z.append(d, r.zone);
-        z.className = 'nw'; tr.append(z, el('td', null, r.nom), el('td', 'nw', r.allure), el('td', 'hn', r.fc), el('td', 'hn', r.usage)); return tr;
-      }));
-    }
-    if (ready('regles')) {
-      $('#rules').replaceChildren(...R('regles').map((r) => {
-        const d = el('div', 'rule-c c-vert'); const b = el('div');
-        b.append(el('b', null, r.libelle), el('br'), 'vert dès ', mark(el('span', null, r.vert_des), 'regles', 'vert_des', 'signal=' + r.signal), ' ' + r.unite + ', orange dès ', mark(el('span', null, r.orange_des), 'regles', 'orange_des', 'signal=' + r.signal), ' ' + r.unite);
-        d.append(el('span', 'dot'), b); return d;
-      }));
-    }
-    if (ready('predictions')) {
-      $('#preds').replaceChildren(...R('predictions').map((r) => { const d = el('div'); d.append(el('div', 'cap', r.distance === 'Semi' ? 'Semi-marathon' : r.distance), mark(el('div', 'v', r.temps), 'predictions', 'temps', 'distance=' + enc(r.distance))); return d; }));
-    }
-    if (ready('records')) {
-      $('#records').replaceChildren(...R('records').map((r) => { const li = el('li'); const l = el('span'); l.append(el('span', null, r.epreuve), el('br'), el('span', 'rd', fd(r.date, { day: 'numeric', month: 'long', year: 'numeric' }))); li.append(l, mark(el('span', 'rv', r.temps), 'records', 'temps', 'epreuve=' + enc(r.epreuve))); return li; }));
-    }
-  }
-
-  /* ---------- rendu ---------- */
+  document.querySelectorAll('.al-tabs button').forEach((b) => b.addEventListener('click', () => show(b.dataset.p, true)));
   function render() {
-    common();
-    if (tab === 'aujourdhui') drawToday();
-    if (tab === 'plan') drawPlan();
-    if (tab === 'sante') drawHealth();
-    if (tab === 'seances') drawSessions();
-    if (tab === 'reperes') drawRefs();
+    try {
+      if (page === 'jour') drawJour();
+      if (page === 'semaine') drawSemaine();
+      if (page === 'objectifs') drawObjectifs();
+    } catch (e) { console.error(e); }
   }
-  TABS.forEach((k) => { $('#' + k).hidden = k !== tab; $('#tab-' + k).setAttribute('aria-selected', String(k === tab)); });
+  PAGES.forEach((k) => { $('#p-' + k).hidden = k !== page; $('#t-' + k).setAttribute('aria-selected', String(k === page)); });
   dash.onData(render);
 })();
 </script>
 <script>
 (() => {
+  const REFRESH = '<svg class="ri" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4.2h-4.2"/></svg>';
   const IDS = ['activites', 'sommeil', 'vfc', 'charge', 'body_battery', 'pas', 'vo2max', 'etat_du_jour',
-    'equilibre_charge', 'predictions', 'records', 'allures', 'regles', 'plan', 'semaines'];
+    'equilibre_charge', 'predictions', 'records', 'allures', 'regles', 'plan', 'semaines', 'coach'];
   const $ = (s) => document.querySelector(s);
   const lock = $('#lock'), app = $('#app'), form = $('#lock-f'), input = $('#lock-k'), err = $('#lock-err'), go = $('#lock-go');
 
@@ -1480,6 +782,14 @@ dash.calc('ecart_objectif', {
     if (!started) {
       started = true;
       ['src-calcs', 'src-ui'].forEach((id) => { const s = document.createElement('script'); s.textContent = $('#' + id).textContent; document.body.appendChild(s); });
+      const slot = document.getElementById('al-slot');
+      if (slot) {
+        const w = document.createElement('div'); w.className = 'app-tools';
+        const u = document.createElement('span'); u.className = 'app-upd'; u.textContent = updLabel(UPDATED);
+        const bt = document.createElement('button'); bt.type = 'button'; bt.className = 'app-btn'; bt.setAttribute('data-refresh', ''); bt.setAttribute('aria-label', 'Actualiser les données');
+        bt.innerHTML = REFRESH; bt.addEventListener('click', () => refresh(true));
+        w.append(u, bt); slot.append(w);
+      }
     } else notify();
   }
   function showLock(msg) {

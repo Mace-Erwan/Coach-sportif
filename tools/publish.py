@@ -24,7 +24,7 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 IDS = [
     'activites', 'sommeil', 'vfc', 'charge', 'body_battery', 'pas', 'vo2max',
     'etat_du_jour', 'equilibre_charge', 'predictions', 'records', 'allures',
-    'regles', 'plan', 'semaines',
+    'regles', 'plan', 'semaines', 'coach',
 ]
 ITER = 600_000
 
