@@ -442,7 +442,7 @@ button{touch-action:manipulation}
   <aside class="ax-side">
     <div class="ax-brand">
       <div class="mark"><svg viewBox="0 0 24 24"><rect x="2.6" y="6" width="18.8" height="12" rx="6"/><rect x="6.6" y="9.6" width="10.8" height="4.8" rx="2.4"/><path d="M14.6 14.4V18"/></svg></div>
-      <div><b>Allure</b><span>Coach semi-marathon</span></div>
+      <div><b>Allure</b><span>Coach semi et 10 km</span></div>
     </div>
     <nav class="ax-nav" role="tablist" aria-label="Sections">
       <div class="ax-nav-t">Ma prépa</div>
@@ -462,10 +462,11 @@ button{touch-action:manipulation}
     <!-- ================= AUJOURD'HUI ================= -->
     <section class="ax-page" id="aujourdhui" role="tabpanel">
       <article class="hero" id="hero">
-        <h1>Semi d’Antony en moins de 1:25</h1>
+        <h1>Semi d’Antony en 1:20, 10 km sous 35:00</h1>
         <p class="hero-lede dash-skeleton" id="takeaway" data-source="feu_du_jour plan">—</p>
         <ul class="tags">
-          <li>4:01 /km de moyenne</li>
+          <li>3:47 /km au semi</li>
+          <li>3:30 /km au 10 km</li>
           <li>5 séances par semaine</li>
           <li>VO2max <span data-source="etat_du_jour" data-field="valeur" data-where="cle=vo2max" data-fill>—</span></li>
           <li>Forerunner 165</li>
@@ -634,7 +635,7 @@ button{touch-action:manipulation}
     <section class="ax-page" id="reperes" role="tabpanel" hidden>
       <header class="ax-ph"><h2>Allures et repères</h2><p>Tes allures d’entraînement, les règles du feu du jour et où tu en es par rapport à l’objectif.</p></header>
       <article class="card" id="c-allures">
-        <div class="card-h"><h3>Tes allures</h3><span class="card-t">VMA estimée 17,5 km/h, recalée fin décembre</span></div>
+        <div class="card-h"><h3>Tes allures</h3><span class="card-t">VMA estimée 18,5 km/h (10 km en 35:16), recalée fin décembre</span></div>
         <div class="tscroll" style="max-height:none">
           <table data-source="allures" data-row-key="zone" id="tab-allures">
             <thead><tr><th data-field="zone">Zone</th><th data-field="nom">Nom</th><th data-field="allure">Allure</th><th data-field="fc" class="hn">FC (bpm)</th><th data-field="usage" class="hn">Repère</th></tr></thead>
@@ -651,7 +652,7 @@ button{touch-action:manipulation}
           <div><div class="cap">Écart à combler</div><div class="big" data-source="ecart_objectif" data-field="ecart" data-row="0" data-fill>—</div></div>
         </div>
         <div class="preds" id="preds" data-source="predictions"></div>
-        <p class="note" style="margin-top:12px">Ton meilleur 10 km : <b data-source="meilleur_10k" data-field="temps" data-row="0" data-fill>—</b> (<span data-source="meilleur_10k" data-field="nom" data-row="0" data-fill>—</span>), soit un potentiel d’environ 1:20 sur semi.</p>
+        <p class="note" style="margin-top:12px">Ton record sur 10 km : <b data-source="records" data-field="temps" data-where="epreuve=10 km" data-fill>—</b>, objectif de la saison sous 35:00 (3:30 /km). Ce niveau correspond à un semi autour de 1:18–1:20 : le 1:20 est réaliste si l’entraînement suit, 1:25 reste le plancher.</p>
       </article>
       <div class="grid2">
         <article class="card" id="c-records">
@@ -797,13 +798,13 @@ dash.calc('meilleur_10k', {
 
 dash.calc('ecart_objectif', {
   title: 'Écart prédiction vs objectif',
-  description: 'Prédiction Garmin du semi moins l’objectif de 1:25:00 (5 100 s).',
+  description: 'Prédiction Garmin du semi moins l’objectif de 1:20:00 (4 800 s).',
   inputs: ['predictions'],
   fn: (predictions) => {
     const semi = predictions.find((p) => p.distance === 'Semi');
-    const d = Number(semi.secondes) - 5100;
+    const d = Number(semi.secondes) - 4800;
     const a = Math.abs(d);
-    return [{ prediction: semi.temps, objectif: '1:25:00', ecart: d > 0 ? Math.floor(a / 60) + ':' + String(a % 60).padStart(2, '0') : 'atteint' }];
+    return [{ prediction: semi.temps, objectif: '1:20:00', ecart: d > 0 ? Math.floor(a / 60) + ':' + String(a % 60).padStart(2, '0') : 'atteint' }];
   },
 });
 </script>
@@ -816,9 +817,9 @@ dash.calc('ecart_objectif', {
   const TYPE = {
     EF: ['Endurance', SKY], REC: ['Récup', MUTED], SL: ['Sortie longue', ACC], VMA: ['VMA', CORAL],
     SEUIL: ['Seuil', AMBER], AS21: ['Allure semi', VIOLET], TEMPO: ['Tempo', NAVY], COTES: ['Côtes', '#A07855'],
-    FARTLEK: ['Fartlek', '#C77DBA'], TEST: ['Test', 'var(--color-fg)'], COURSE: ['Course', 'var(--color-fg)'], REPOS: ['Repos', MUTED],
+    FARTLEK: ['Fartlek', '#C77DBA'], A10: ['Allure 10 km', '#C2504B'], TEST: ['Test', 'var(--color-fg)'], COURSE: ['Course', 'var(--color-fg)'], REPOS: ['Repos', MUTED],
   };
-  const KEY = ['VMA', 'SEUIL', 'AS21', 'TEMPO', 'COTES', 'FARTLEK', 'TEST', 'COURSE'];
+  const KEY = ['VMA', 'SEUIL', 'AS21', 'A10', 'TEMPO', 'COTES', 'FARTLEK', 'TEST', 'COURSE'];
   const BAD = ['error', 'missing', 'declined', 'connect'];
   const BLOCS = ['Transition', 'Fondations', 'Développement', 'Spécifique semi', 'Affûtage'];
   const MSG = { vert: 'Tous les voyants sont au vert : fais la séance prévue telle quelle.', orange: 'Ton corps récupère encore : on allège la séance du jour.', rouge: 'Récupération insuffisante : repos ou footing à 5:50–6:30 /km.' };
@@ -1010,11 +1011,12 @@ dash.calc('ecart_objectif', {
     const free = (a2, b2) => busy.every(([x0, x1]) => b2 + 10 < x0 || a2 - 10 > x1);
     plan.filter((p) => p.type === 'TEST' || p.type === 'COURSE').forEach((p) => {
       const d = nDays(start, p.date) + 0.5;
-      const ms = el('div', 'trk-ms' + (p.type === 'COURSE' ? ' end' : ''));
+      const fin = p.type === 'COURSE' && p.date === RACE;
+      const ms = el('div', 'trk-ms' + (fin ? ' end' : ''));
       ms.style.left = (d / total) * 100 + '%';
-      if (p.type === 'COURSE') ms.append(svgEl(ICON.flag));
-      const lab = el('span'); lab.append(el('b', null, p.type === 'COURSE' ? 'Le semi' : p.titre.replace(' demi-Cooper', '')), fShort(p.date));
-      const x = (d / total) * W, rng = p.type === 'COURSE' ? [x - 72, x + 4] : [x - 42, x + 42];
+      if (fin) ms.append(svgEl(ICON.flag));
+      const lab = el('span'); lab.append(el('b', null, fin ? 'Le semi' : p.type === 'COURSE' ? 'Trail 4 Châteaux' : p.titre.replace(' demi-Cooper', '').replace(' : objectif sous 35:00', '')), fShort(p.date));
+      const x = (d / total) * W, rng = fin ? [x - 72, x + 4] : [x - 46, x + 46];
       if (free(rng[0], rng[1])) busy.push(rng); else lab.style.visibility = 'hidden';
       ms.append(lab); bar.append(ms);
     });
@@ -1326,7 +1328,7 @@ dash.calc('ecart_objectif', {
   $('#h-sport').addEventListener('change', drawHistory);
 
   /* ---------- REPÈRES ---------- */
-  const ZCOL = { REC: MUTED, EF: SKY, SL: ACC, AM: NAVY, AS21: VIOLET, SEUIL: AMBER, 'VMA-L': CORAL, 'VMA-C': '#C94F5B', LD: 'var(--color-fg)' };
+  const ZCOL = { REC: MUTED, EF: SKY, SL: ACC, AM: NAVY, AS21: VIOLET, SEUIL: AMBER, A10: '#C2504B', 'VMA-L': CORAL, 'VMA-C': '#C94F5B', LD: 'var(--color-fg)' };
   function drawRefs() {
     if (ready('allures')) {
       $('#tab-allures tbody').replaceChildren(...R('allures').slice().sort((a, b) => a.ordre - b.ordre).map((r) => {

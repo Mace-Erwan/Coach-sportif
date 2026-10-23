@@ -1,5 +1,5 @@
 /* Allure : réseau d'abord, cache en secours pour ouvrir l'appli hors connexion. */
-const CACHE = 'allure-v1';
+const CACHE = 'allure-v2';
 const CORE = ['./', 'index.html', 'vendor/d3.min.js', 'fonts/bc-600.woff2', 'fonts/bc-700.woff2',
   'icons/icon-180.png', 'icons/favicon-64.png', 'manifest.webmanifest'];
 
